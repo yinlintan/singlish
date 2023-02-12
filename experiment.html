@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Singlish Experiment</title>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+</head>
+
+<body></body>
+<script>
+    /* initialize jsPsych */
+    var jsPsych = initJsPsych();
+
+    /* create timeline */
+    var timeline = [];
+
+    /* define welcome message trial */
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+
+    var instructions = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+        <p>In this experiment, you will be listening to pairs of audio stimuli.</p>
+        <p>Press any key to begin.</p>
+      `,
+            post_trial_gap: 2000
+        };
+        timeline.push(instructions);
+
+    timeline.push(welcome);
+    timeline.push(instructions);
+
+    /* start the experiment */
+    jsPsych.run(timeline);
+
+</script>
+
+</html>
