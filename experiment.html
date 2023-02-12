@@ -3,7 +3,10 @@
 
 <head>
     <title>Singlish Experiment</title>
-    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body></body>
@@ -14,24 +17,74 @@
     /* create timeline */
     var timeline = [];
 
-    /* define welcome message trial */
-    var welcome = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: "Welcome to the experiment. Press any key to begin."
-    };
-
     var instructions = {
-            type: jsPsychHtmlKeyboardResponse,
+            type: jsPsychHtmlButtonResponse,
             stimulus: `
-        <p>In this experiment, you will be listening to pairs of audio stimuli.</p>
-        <p>Press any key to begin.</p>
+        <div class="text" id="instruction">
+            <img src="./images/stanford_logo.png" alt="stanford logo" width="180" height="80">
+            <p>Welcome! In this experiment, you will be listening to pairs of audio stimuli.</p>
+            <p>Each pair of audio clips will be played once in consecutive order. 
+                Your task is to decide which one of the clips sounds more "Singlish".</p>
+            <p>The experiment will take approximately 40 minutes, and you will compensated for your time.</p>
+        </div>
       `,
-            post_trial_gap: 2000
+            choices: ["Continue"],
+            button_html: `<button class="continue-btn">%choice%</button>`,
         };
-        timeline.push(instructions);
 
-    timeline.push(welcome);
+    /* define welcome message trial */
+    var legalInfo = {
+            type: jsPsychHtmlButtonResponse,
+            stimulus:    `
+        <div class="text" id="irb">
+            
+                <h3>Preliminary Information </h3>
+                <p>
+                    <strong>Study Title</strong>: The Perception of Singaporean Varieties of English.
+                    
+                </p>
+                <p><strong>Protocol Director</strong>: Yin Lin Tan</p>
+                <p>		
+                    <strong>Description</strong>: You are invited to participate in a research study.  
+                    Its general purpose is to understand how people perceive auditory stimuli.  We are interested in how acoustic properties of speech are used and stored by speakers.  
+                    You will be asked to listen to pairs of audio stimuli and make simple decisions about them.
+                </p>
+                <p>		
+                    <strong>Risks and Benefits</strong>: There are no known risks, costs, or discomforts in this study and this judgment is based on a large body of experience with the same or similar procedures with people of similar ages, sex, origins, etc.  
+                    We cannot and do not guarantee or promise that you will receive any benefits from this study. 
+                    You will help us to understand how people perceive auditory stimuli. 
+                </p>	
+                <p>	
+                    <strong>Time Involvement</strong>: Your participation in this experiment will take less than one hour.
+                </p>
+                <p>	
+                    <strong>Payments</strong>: You will receive approximately $15/hr for your participation. 
+                </p>
+                <p>		
+                    <strong>Subject's Rights</strong>: If you have read this form and have decided to participate in this project, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to answer particular questions. Your individual privacy will be maintained in all published and written data resulting from the study.
+                </p>
+                <p>			
+                    <strong>Contact Information</strong>: 
+                    Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, Yin Lin Tan at (xxx). 
+                </p>	
+                <p>
+                    <strong>Independent Contact</strong>: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, Stanford, CA 94305-5401 or email irbnonmed@stanford.edu.
+                    
+                </p>	
+                <p>	
+                    <strong>Waiver of Documentation</strong>:
+                    If you agree to participate in this research, please continue on to the study. 
+                </p>	
+                
+        </div>
+      `, 
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`,
+        };
+
+    
     timeline.push(instructions);
+    timeline.push(legalInfo);
 
     /* start the experiment */
     jsPsych.run(timeline);
