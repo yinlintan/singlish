@@ -11,13 +11,13 @@
 #irb {
     margin-top: 0%;
     padding-top: 5%;
-    padding-bottom: 5%;
+    padding-bottom: 2%;
 }
 
 .continue-btn {
     margin-left: 60vh;
     margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
     width: 80px;
     height: 30px;
     text-align: center;
@@ -45,4 +45,9 @@ h3 {
         BlinkMacSystemFont,
         'Segoe UI',Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 24px;
+    font-weight: 500;
+}
+
+strong {
+    font-weight: 500;
 }
