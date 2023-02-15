@@ -23,10 +23,9 @@
         <div class="text" id="instruction">
             <img src="./images/stanford_logo.png" alt="stanford logo" width="180" height="80">
             <p>Welcome! In this experiment, you will be listening to pairs of audio clips.</p>
-            <p>Each pair of audio clips will be played once in consecutive order. 
-                Your task is to decide which one of the clips sounds more Singlish.</p>
+            <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
-            <p>The experiment will take approximately 40 minutes, and you will compensated for your time.</p>
+            <p>The experiment will take approximately 40 minutes and you will compensated for your time.</p>
         </div>
       `,
             choices: ["Continue"],
@@ -81,9 +80,50 @@
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
 
+    /* sound check */
+    var soundcheck = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+        <div class="text" id="instruction">
+        <p>Please press the spacebar to hear what word to type in the box.</p>
+        <p>Continue button should only appear if the word typed in is correct. YL will cut a single clip. Maybe use psychophsyics plugin??</p>
+        </div>
+        `,
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`,
+        };
+
+    /* practice trial instructions*/
+    var practice1Instructions = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+        <div class="text" id="instruction">
+        <p>You will now start two practice trials.</p>
+        <p>On the next page, two audio clips will play consecutively. Each audio clip will only play once and you will not be able to replay them.</p>
+        <p>Please place your left index finger on the <strong>S</strong> key and your right index finger on the <strong>L</strong> key.</p>
+        <p>If the first clip sounds more Singlish, please 
+        <p>Something about pressing <strong>S</strong> for the first clip and <strong>L</strong> for the second clip.</p>
+        </div>
+        `,
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`,
+        };
+
+    /* practice trial*/
+    var practice1 = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+        <div class="text" id="instruction">
+        <p>play two clips</p>
+        </div>
+        `,
+        };
     
     timeline.push(instructions);
     timeline.push(legalInfo);
+    timeline.push(soundcheck);
+    timeline.push(practice1Instructions);
+    timeline.push(practice1);
 
     /* start the experiment */
     jsPsych.run(timeline);
