@@ -6,6 +6,7 @@
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/jspsych-psychophysics.js"></script>
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -38,7 +39,7 @@
             stimulus:    `
         <div class="text" id="irb">
             
-                <h3>Preliminary Information </h3>
+                <h3>Legal Information </h3>
                 <p>
                     <strong>Study Title</strong>: The Perception of Singaporean Varieties of English.
                     
@@ -82,7 +83,59 @@
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
 
-    
+    // generate random audio stimuli from database
+    // for loop?
+    /*
+    var stimuli1 = {}
+    var stimuli2 = {}
+
+    var trial = {
+            type: jsPsychPsychophysics,
+            choices: [],
+    }
+
+    const sounds = [ // All the sound files used in this demo
+        './sound/tone100ms.wav',
+        './sound/880Hz_100ms.wav'
+    ];
+
+    // Preloading files are needed to present the stimuli accurately.
+    const preload = {
+        type: jsPsychPreload,
+        audio: sounds,
+    }
+
+    const trial = {
+        timeline: [
+            {
+                type: jsPsychPsychophysics,
+                stimuli: [
+                    {
+                        obj_type: 'sound',
+                        file: jsPsych.timelineVariable('first_sound'),
+                        show_start_time: 500 // from the trial start (ms)
+                    },
+                    {
+                        obj_type: 'sound',
+                        file: jsPsych.timelineVariable('second_sound'),
+                        show_start_time: 1500 // from the trial start (ms)
+                    },
+                ],
+                choices: ['y', 'n'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+                prompt: 'Press the Y or N key to respond.',
+                canvas_height: 500
+            },
+        ],
+        timeline_variables:[
+            {first_sound: sounds[0], second_sound: sounds[1]}
+        ],
+        repetitions: 3
+    }
+
+
+    //jsPsych.run([preload, pre_audio, trial])
+    */
+  
     timeline.push(instructions);
     timeline.push(legalInfo);
 

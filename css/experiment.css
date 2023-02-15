@@ -9,15 +9,22 @@
 }
 
 #irb {
-    margin-top: 0%;
-    padding-top: 5%;
+    height: 65vh;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    border: 1px solid;
+    overflow: auto;
+    padding-top: 3%;
     padding-bottom: 2%;
 }
 
 .continue-btn {
-    margin-left: 60vh;
+    margin-left: 70vh;
     margin-top: 40px;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
     width: 80px;
     height: 30px;
     text-align: center;
