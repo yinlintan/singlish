@@ -55,6 +55,10 @@ strong {
 /* jsPsych progress bar */
 #jspsych-progressbar-container {
     color: #555;
+    font-family: Helvetica, system-ui,
+        -apple-system,
+        Helvetica, BlinkMacSystemFont,
+        'Segoe UI',Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     border-bottom: 1px solid #dedede;
     background-color: #f9f9f9;
     margin-bottom: 1em;
