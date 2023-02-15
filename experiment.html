@@ -13,7 +13,9 @@
 <body></body>
 <script>
     /* initialize jsPsych */
-    var jsPsych = initJsPsych();
+    var jsPsych = initJsPsych({
+            show_progress_bar: true
+        });
 
     /* create timeline */
     var timeline = [];
@@ -131,8 +133,6 @@
         ],
         repetitions: 3
     }
-
-
     //jsPsych.run([preload, pre_audio, trial])
     */
   
