@@ -1,21 +1,44 @@
-.text{
+.jspsych-content-wrapper {
     padding-left: 15%;
     padding-right: 15%;
     text-align: left;
+    font-family: Helvetica, system-ui,
+        -apple-system,
+        Helvetica, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.jspsych-survey-multi-choice-option {
+    font-family: Helvetica, system-ui,
+        -apple-system,
+        Helvetica, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
 }
 
 #instruction {
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 #irb {
     margin-top: 0%;
-    padding-top: 5%;
+    padding-top: 0%;
     text-align: justify;
 }
 
-.continue-btn {
-    margin-left: 60vh;
+#trial {
+    margin-top: 0%;
+    padding-top: 5%;
+    text-align: center;
+}
+
+#input-0 {
+    margin-left: 25vw;
+}
+
+.continue-btn, .jspsych-btn {
+    margin-left: 32vw;
     margin-top: 10px;
     margin-bottom: 45px;
     width: 80px;

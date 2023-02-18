@@ -7,6 +7,9 @@
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-html-button-response.js"></script>
     <script src="jspsych/jspsych-psychophysics.js"></script>
+    <script src="jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+    <script src="jspsych/plugin-iat-html.js"></script>
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -14,7 +17,11 @@
 <script>
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
-            show_progress_bar: true
+            show_progress_bar: true,
+            on_finish: function() {
+                jsPsych.data.displayData();
+            },
+            default_iti: 250
         });
 
     /* create timeline */
@@ -28,12 +35,14 @@
             <p>Welcome! In this experiment, you will be listening to pairs of audio clips.</p>
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
+            <p>This experiment should be completed on a desktop or laptop.</p>
             <p>The experiment will take approximately 40 minutes and you will compensated for your time.</p>
         </div>
       `,
             choices: ["Continue"],
             button_html: `<button class="continue-btn">%choice%</button>`,
         };
+    timeline.push(instructions);
 
     /* define welcome message trial */
     var legalInfo = {
@@ -82,51 +91,123 @@
         choices: ["Continue"],
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
+    timeline.push(legalInfo);
 
-    /* sound check */
+    /* sound check 
+    can do this current way (IAT) OR one where they need to type in the text e.g., "Please type the word GO" or something*/
     var soundcheck = {
-        type: jsPsychHtmlButtonResponse,
-        stimulus: `
-        <div class="text" id="instruction">
-        <p>Please press the spacebar to hear what word to type in the box.</p>
-        <p>Continue button should only appear if the word typed in is correct. YL will cut a single clip. Maybe use psychophsyics plugin??</p>
-        </div>
+        type: jsPsychIatHtml,
+        stimulus: `<center><audio controls src="./audio/JOHN_01.wav"></audio></center>`,
+        stim_key_association: 'left',
+        html_when_wrong: `
+        <div id="trial" style="margin-top: -200px"><span style="color: red; font-size: 80px">X</span>
+        <p><strong>Please try again! Make sure that you are wearing headphones or earphones.</strong></p></div>
         `,
-        choices: ["Continue"],
-        button_html: `<button class="continue-btn">%choice%</button>`,
+        bottom_instructions: `
+        <div id="trial">Listen carefully to the audio clip above and select the correct option to continue.</div>
+        `,
+        force_correct_key_press: true,
+        display_feedback: true,
+        left_category_key: 'S',
+        right_category_key: 'L',
+        left_category_label: ['HIGH'],
+        right_category_label: ['LOW'],
+        response_ends_trial: true
         };
+    timeline.push(soundcheck);
 
     /* practice trial instructions*/
     var practice1Instructions = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
-        <div class="text" id="instruction">
+        <div class="text" id="trial">
         <p>You will now start two practice trials.</p>
-        <p>On the next page, two audio clips will play consecutively. Each audio clip will only play once and you will not be able to replay them.</p>
-        <p>Please place your left index finger on the <strong>S</strong> key and your right index finger on the <strong>L</strong> key.</p>
-        <p>If the first clip sounds more Singlish, please 
-        <p>Something about pressing <strong>S</strong> for the first clip and <strong>L</strong> for the second clip.</p>
+        <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
+        <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
+        <p>IMAGE OF HANDS ON KEYBOARD</p>
+        <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
+        <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
+        <p>Please do your best to respond as quickly as possible.</p>
         </div>
         `,
         choices: ["Continue"],
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
+    timeline.push(practice1Instructions);
 
     /* practice trial*/
     var practice1 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
-        <div class="text" id="instruction">
-        <p>play both clips</p>
+        <div class="text" id="trial">
+        <p>TRIAL STIM 1 and TRIAL STIM 2</p>
         </div>
         `,
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`,
         };
-    
-    timeline.push(instructions);
-    timeline.push(legalInfo);
-    timeline.push(soundcheck);
-    timeline.push(practice1Instructions);
     timeline.push(practice1);
+
+    /* real trial instructions
+
+    You have now completed the two practice trials.
+
+    In this experiment, you will listen to a variety of spoken sentences and phrases. 
+
+    Like with the practice trial, you will listen to two audio clips at a time. Your task is to decide which clip of the two sounds more Singlish.
+
+    Some audio clips might sound similar to one another. Please do your best to respond as quickly as possible.
+
+    */
+
+    /* language background questionnaire 
+    -- how to add open-ended option for gender and ethnicity?*/
+    var lbq = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+        {
+            prompt: `
+            What is your gender?
+            `,
+            name: 'Gender',
+            options: ['Male', 'Female', 'Non-binary', 'Other', 'Do not wish to say'],
+            required: false
+        },
+        {
+            prompt: `
+            What is your ethnicity?
+            `,
+            name: 'Ethnicity',
+            options: ['Chinese', 'Malay', 'Indian', 'Other'],
+            required: true
+        },
+        {
+            prompt: `
+            What is your age this year?
+            `,
+            name: 'Age',
+            options: ['18 to 21 years old', '22 to 30 years old', '31 to 40 years old', '41 to 50 years old', '51 to 60 years old', '61 years old and above'],
+            required: true
+        }
+        ]
+        };
+    timeline.push(lbq);
+
+    /* payment information */
+    var payment = {
+        type: jsPsychSurveyText,
+        questions: [
+        {prompt: `
+            <div class="text" id="trial">
+            <p>Thank you for completing the experiment!</p>
+            <p>We will contact you soon for participant reimbursement purposes. Please provide your email address in the field below.</p>
+            </div>
+            `,
+            name: 'Contact'}
+            ]
+    };
+    timeline.push(payment);
 
     /* start the experiment */
     jsPsych.run(timeline);
