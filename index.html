@@ -136,7 +136,9 @@
         };
     timeline.push(practice1Instructions);
 
-    /* practice trial*/
+    /* practice trial */
+
+    
     var practice1 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
@@ -159,6 +161,18 @@
 
     Some audio clips might sound similar to one another. Please do your best to respond as quickly as possible.
 
+    */
+
+    /*
+    potential logic for generating trials:
+    -- use JsPsychHTMLButtonResponse
+    -- add <script> module within html chunk to dynamically generate trial stimuli
+    -- can also add visual content
+    -- potential issue #1: should try and use WebAudioAPI for better audio control
+    -- potential issue #2: how to preload audio objects if randomly generated? 
+    -- should imitate will's set-up; generate array of randomized trials then "fill-in" to trial template
+    -- need scripts: 1) randomly generating audio objects and preload, 
+                     2) using trial objects to populate trial HTML templates
     */
 
     /* language background questionnaire 
