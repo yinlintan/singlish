@@ -7,6 +7,7 @@
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-html-button-response.js"></script>
     <script src="jspsych/jspsych-psychophysics.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
     <script src="jspsych/plugin-survey-multi-choice.js"></script>
     <script src="jspsych/plugin-survey-text.js"></script>
     <script src="jspsych/plugin-iat-html.js"></script>
@@ -26,6 +27,17 @@
 
     /* create timeline */
     var timeline = [];
+
+    const sounds = [ // All the sound files used in this demo
+        './audio/JOHN_01.wav',
+        './audio/LUKE_01.wav'
+    ];
+
+    // Preloading files are needed to present the stimuli accurately.
+    const preload = {
+        type: jsPsychPreload,
+        audio: sounds,
+    } 
 
     var instructions = {
             type: jsPsychHtmlButtonResponse,
@@ -165,15 +177,61 @@
 
     /*
     potential logic for generating trials:
-    -- use JsPsychHTMLButtonResponse
-    -- add <script> module within html chunk to dynamically generate trial stimuli
-    -- can also add visual content
-    -- potential issue #1: should try and use WebAudioAPI for better audio control
-    -- potential issue #2: how to preload audio objects if randomly generated? 
+    -- use JSPsychophysics
+    -- have four stimuli: two visual and two sound, sync up start  time of pairs of visual and sound
     -- should imitate will's set-up; generate array of randomized trials then "fill-in" to trial template
-    -- need scripts: 1) randomly generating audio objects and preload, 
-                     2) using trial objects to populate trial HTML templates
+    -- need scripts: 1) randomly generating audio objects and preload (similar to Will's), 
+                     2) using trial objects to populate Psychophysics trial templates
     */
+    
+    const visualStim1 = {
+        obj_type: 'rect', // means a rectangle
+        startX: window.innerWidth * 0.15, // location in the canvas
+        startY: 0,
+        width: window.innerWidth * 0.38, // of the rectangle
+        height: 500,
+        line_color: 'white',
+        fill_color: 'white',
+        show_start_time: 500, // from the trial start (ms)
+        show_end_time: 3500,
+    }
+
+    const visualStim2 = {
+        obj_type: 'rect',
+        startX: window.innerWidth * 0.52, // location in the canvas
+        startY: 0,
+        width: window.innerWidth * 0.38, // of the rectangle
+        height: 500,
+        line_color: 'white',
+        fill_color: 'white',
+        show_start_time: 4000, // from the trial start (ms)
+        show_end_time: 8000
+    }
+
+    const trial1 = {
+        type: jsPsychPsychophysics,
+        stimuli: [
+            {
+                obj_type: 'sound',
+                file: sounds[0],
+                show_start_time: 500 // from the trial start (ms)
+            },
+            visualStim1,
+            {
+                obj_type: 'sound',
+                file: sounds[1],
+                show_start_time: 4000 // from the trial start (ms)
+            },
+            visualStim2,
+        ],
+        choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+        prompt: 'Press the S or L key to respond.',
+        canvas_height: 500,
+        canvas_width: window.innerWidth * 0.7,
+    }
+
+    timeline.push(trial1);
+
 
     /* language background questionnaire 
     -- how to add open-ended option for gender and ethnicity?*/
