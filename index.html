@@ -350,7 +350,7 @@
           },
           {
             type: 'text',
-            prompt: "In your opinion, when or where is it acceptable to use Singlish? When or where is it not acceptable to use Singlish?",
+            prompt: "In your opinion, when and/or where is it acceptable to use Singlish? When and/or where is it not acceptable to use Singlish?",
             name: 'singlish_acceptability',
             required: true,
           },
@@ -385,6 +385,7 @@
           {
             type: 'likert',
             prompt: 'Singlish is just bad English.',
+            name: 'likert_badenglish',
             required: true,
             likert_scale_min_label: 'Strongly Disagree',
             likert_scale_max_label: 'Strongly Agree',
@@ -399,6 +400,7 @@
           {
             type: 'likert',
             prompt: 'Singlish is the only thing that really makes us Singaporean.',
+            name: 'likert_singaporean',
             required: true,
             likert_scale_min_label: 'Strongly Disagree',
             likert_scale_max_label: 'Strongly Agree',
@@ -413,6 +415,7 @@
           {
             type: 'likert',
             prompt: 'Singlish unites the different races of Singapore.',
+            name: 'likert_race',
             required: true,
             likert_scale_min_label: 'Strongly Disagree',
             likert_scale_max_label: 'Strongly Agree',
@@ -427,6 +430,7 @@
           {
             type: 'likert',
             prompt: 'It would be better for Singapore if Singlish did not exist.',
+            name: 'likert_exist',
             required: true,
             likert_scale_min_label: 'Strongly Disagree',
             likert_scale_max_label: 'Strongly Agree',
@@ -440,19 +444,6 @@
           },
 
         ],
-        [
-          {
-            type: 'likert-table',
-            prompt: ' ',
-            statements: [
-              {prompt: 'Singlish is just bad English.', name: 'likert_badenglish'},
-              {prompt: 'Singlish is the only thing that really makes us Singaporean.', name: 'likert_singaporean'},
-              {prompt: 'Singlish unites the different races of Singapore.', name: 'likert_unites'},
-              {prompt: 'It would be better for Singapore if Singlish did not exist.', name: 'likert_exist'},
-            ],
-            options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
-          }
-        ]
       ],
     };
     timeline.push(survey4);
@@ -460,6 +451,22 @@
     /* emotion scale */
 
     /* future study? */
+    var futurestudies = {
+      type: jsPsychSurvey,
+      pages: [
+        [
+          {
+            type: 'multi-choice',
+            prompt: "Do you consent to being contacted for future studies?",
+            name: 'futurestudies',
+            options: ['Yes', 'No'],
+            required: true,
+          }
+        ]
+      ],
+    button_label_finish: 'Continue',
+    };
+    timeline.push(futurestudies);
 
     /* payment information */
     var payment = {
@@ -471,7 +478,7 @@
             <p>We will contact you soon for participant reimbursement purposes. Please provide your email address in the field below.</p>
             </div>
             `,
-            name: 'Contact'}
+            name: 'payment'}
             ]
     };
     timeline.push(payment);
