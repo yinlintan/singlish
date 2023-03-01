@@ -12,6 +12,7 @@
     <script src="jspsych/plugin-survey-text.js"></script>
     <script src="jspsych/plugin-iat-html.js"></script>
     <script src="jspsych/plugin-survey.js"></script>
+    <link href="css/survey.css" rel="stylesheet" type="text/css" />
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -107,7 +108,10 @@
     timeline.push(legalInfo);
 
     /* sound check 
-    can do this current way (IAT) OR one where they need to type in the text e.g., "Please type the word GO" or something*/
+    Put one of the deleted processed audio clips and have them type in the last word in the clip.
+    */
+
+    /*
     var soundcheck = {
         type: jsPsychIatHtml,
         stimulus: `<center><audio controls src="./audio/JOHN_01.wav"></audio></center>`,
@@ -128,6 +132,7 @@
         response_ends_trial: true
         };
     timeline.push(soundcheck);
+    */
 
     /* practice trial instructions*/
     var practice1Instructions = {
@@ -369,53 +374,87 @@
     timeline.push(survey3);
 
     /* survey 4: language attitude questions */
-    var survey4 = {
-    type: jsPsychSurvey,
-    pages: [
-    [
-      {
-        type: 'likert',
-        prompt: 'I like to eat vegetables.',
-        likert_scale_min_label: 'Strongly Disagree',
-        likert_scale_max_label: 'Strongly Agree',
-        likert_scale_values: [
-          {value: 1},
-          {value: 2},
-          {value: 3},
-          {value: 4},
-          {value: 5}
-        ]
-      }, 
-      {
-        type: 'likert',
-        prompt: 'I like to eat fruit.',
-        likert_scale_min_label: 'Strongly Disagree',
-        likert_scale_max_label: 'Strongly Agree',
-        likert_scale_values: [
-          {value: 1},
-          {value: 2},
-          {value: 3},
-          {value: 4},
-          {value: 5}
-        ]
-      },
-      {
-        type: 'likert',
-        prompt: 'I like to eat meat.',
-        likert_scale_min_label: 'Strongly Disagree',
-        likert_scale_max_label: 'Strongly Agree',
-        likert_scale_values: [
-          {value: 1},
-          {value: 2},
-          {value: 3},
-          {value: 4},
-          {value: 5}
-        ]
-      },  
+    const survey4 = {
+      type: jsPsychSurvey,
+      pages: [
+        [
+          {
+            type: 'html',
+            prompt: `<p style="color: #000000">Please rate how much you agree or disagree with the following statements on a scale of 1 to 5. Select '1' for Strongly Disagree and '5' for Strongly Agree.</p>`,
+          },
+          {
+            type: 'likert',
+            prompt: 'Singlish is just bad English.',
+            required: true,
+            likert_scale_min_label: 'Strongly Disagree',
+            likert_scale_max_label: 'Strongly Agree',
+            likert_scale_values: [
+              {value: 1},
+              {value: 2},
+              {value: 3},
+              {value: 4},
+              {value: 5}
+            ]
+          }, 
+          {
+            type: 'likert',
+            prompt: 'Singlish is the only thing that really makes us Singaporean.',
+            required: true,
+            likert_scale_min_label: 'Strongly Disagree',
+            likert_scale_max_label: 'Strongly Agree',
+            likert_scale_values: [
+              {value: 1},
+              {value: 2},
+              {value: 3},
+              {value: 4},
+              {value: 5}
+            ]
+          },
+          {
+            type: 'likert',
+            prompt: 'Singlish unites the different races of Singapore.',
+            required: true,
+            likert_scale_min_label: 'Strongly Disagree',
+            likert_scale_max_label: 'Strongly Agree',
+            likert_scale_values: [
+              {value: 1},
+              {value: 2},
+              {value: 3},
+              {value: 4},
+              {value: 5}
+            ]
+          },  
+          {
+            type: 'likert',
+            prompt: 'It would be better for Singapore if Singlish did not exist.',
+            required: true,
+            likert_scale_min_label: 'Strongly Disagree',
+            likert_scale_max_label: 'Strongly Agree',
+            likert_scale_values: [
+              {value: 1},
+              {value: 2},
+              {value: 3},
+              {value: 4},
+              {value: 5}
+            ]
+          },
 
-    ],
-  ],
-};
+        ],
+        [
+          {
+            type: 'likert-table',
+            prompt: ' ',
+            statements: [
+              {prompt: 'Singlish is just bad English.', name: 'likert_badenglish'},
+              {prompt: 'Singlish is the only thing that really makes us Singaporean.', name: 'likert_singaporean'},
+              {prompt: 'Singlish unites the different races of Singapore.', name: 'likert_unites'},
+              {prompt: 'It would be better for Singapore if Singlish did not exist.', name: 'likert_exist'},
+            ],
+            options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
+          }
+        ]
+      ],
+    };
     timeline.push(survey4);
 
     /* emotion scale */

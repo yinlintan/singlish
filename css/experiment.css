@@ -28,11 +28,12 @@
     font-weight: 300;
 }
 
-/* survey button style */
+/* survey button style
 .sv_default_css button {
     color: #000000;
     background-color: #eeeeee;
 }
+*/
 
 .jspsych-survey-multi-choice-option {
     font-family: Helvetica, system-ui,
@@ -65,7 +66,7 @@
 
 .continue-btn,
 .jspsych-btn, input[type="button" i] {
-    margin-left: 32vw;
+    margin-left: 0px;
     margin-top: 10px;
     margin-bottom: 45px;
     width: 80px;
