@@ -1,4 +1,5 @@
 .jspsych-content-wrapper {
+    color: #000000;
     padding-left: 15%;
     padding-right: 15%;
     text-align: left;
@@ -9,12 +10,37 @@
     font-weight: 300;
 }
 
+.sv_main.sv_default_css input {
+    border: 1px solid #000000;
+}
+
+.sv_main span, .sv_main.sv_default_css {
+    color: #000000;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+/* survey dropdown box style */
+.sv_main.sv_default_css .sv_q_text_root, .sv_main.sv_default_css .sv_container .sv_body .sv_p_root .sv_q .sv_select_wrapper .sv_q_dropdown_control {
+    border-color: #000000;
+    color: #000000;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+/* survey button style */
+.sv_default_css button {
+    color: #000000;
+    background-color: #eeeeee;
+}
+
 .jspsych-survey-multi-choice-option {
     font-family: Helvetica, system-ui,
         -apple-system,
         Helvetica, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 17px;
     font-weight: 300;
+    color: #000000;
 }
 
 #instruction {
@@ -38,7 +64,7 @@
 }
 
 .continue-btn,
-.jspsych-btn {
+.jspsych-btn, input[type="button" i] {
     margin-left: 32vw;
     margin-top: 10px;
     margin-bottom: 45px;
@@ -53,6 +79,7 @@
         BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 14px;
     font-weight: 500;
+    color: #000000;
 }
 
 p {
