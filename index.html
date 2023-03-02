@@ -13,6 +13,7 @@
     <script src="jspsych/plugin-iat-html.js"></script>
     <script src="jspsych/plugin-survey.js"></script>
     <script src="jspsych/plugin-survey-likert.js"></script>
+    <script src="jspsych/plugin-cloze.js"></script>
     <link href="css/survey.css" rel="stylesheet" type="text/css" />
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
@@ -31,9 +32,13 @@
     /* create timeline */
     var timeline = [];
 
-    const sounds = [ // All the sound files used in this demo
-        './audio/JOHN_01.wav',
-        './audio/LUKE_01.wav'
+    const sounds = [ // These are just the practice trial sounds! REAL trial sounds are in the audio folder
+        './practice/trial1_clip1.wav',
+        './practice/trial1_clip2.wav',
+        './practice/trial2_clip1.wav',
+        './practice/trial2_clip2.wav',
+        './practice/trial3_clip1.wav',
+        './practice/trial3_clip2.wav'
     ];
 
     // Preloading files are needed to present the stimuli accurately.
@@ -60,7 +65,7 @@
     timeline.push(instructions);
 
     /* define welcome message trial */
-    var legalInfo = {
+    var legalinfo = {
             type: jsPsychHtmlButtonResponse,
             stimulus:    `
         <div class="text" id="irb">
@@ -106,41 +111,25 @@
         choices: ["Continue"],
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
-    timeline.push(legalInfo);
+    timeline.push(legalinfo);
 
     /* sound check 
     Put one of the deleted processed audio clips and have them type in the last word in the clip.
     */
-
-    /*
-    var soundcheck = {
-        type: jsPsychIatHtml,
-        stimulus: `<center><audio controls src="./audio/JOHN_01.wav"></audio></center>`,
-        stim_key_association: 'left',
-        html_when_wrong: `
-        <div id="trial" style="margin-top: -200px"><span style="color: red; font-size: 80px">X</span>
-        <p><strong>Please try again! Make sure that you are wearing headphones or earphones.</strong></p></div>
-        `,
-        bottom_instructions: `
-        <div id="trial">Listen carefully to the audio clip above and select the correct option to continue.</div>
-        `,
-        force_correct_key_press: true,
-        display_feedback: true,
-        left_category_key: 'S',
-        right_category_key: 'L',
-        left_category_label: ['HIGH'],
-        right_category_label: ['LOW'],
-        response_ends_trial: true
-        };
+    const soundcheck = {
+        type: jsPsychCloze,
+        text: `<center><BR><BR><audio controls src="./soundcheck.wav"></audio></center><BR><BR>Listen carefully to the audio clip above. Type the <b>last word</b> that was said into the blank below and press "Continue".<BR><BR>% friends %`,
+        check_answers: true,
+        button_text: 'Continue',
+        mistake_fn: function(){alert("Wrong answer. Please make sure your audio is working properly and try again.")}
+    };
     timeline.push(soundcheck);
-    */
 
     /* practice trial instructions*/
-    var practice1Instructions = {
+    var practiceinstructions = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
-        <div class="text" id="trial">
-        <p>You will now start two practice trials.</p>
+        <p>You will now begin three practice trials.</p>
         <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
@@ -148,39 +137,11 @@
         <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
         <p>Please do your best to respond as quickly as possible.</p>
-        </div>
         `,
         choices: ["Continue"],
         button_html: `<button class="continue-btn">%choice%</button>`,
         };
-    timeline.push(practice1Instructions);
-
-    /* practice trial */
-
-    
-    var practice1 = {
-        type: jsPsychHtmlButtonResponse,
-        stimulus: `
-        <div class="text" id="trial">
-        <p>TRIAL STIM 1 and TRIAL STIM 2</p>
-        </div>
-        `,
-        choices: ["Continue"],
-        button_html: `<button class="continue-btn">%choice%</button>`,
-        };
-    timeline.push(practice1);
-
-    /* real trial instructions
-
-    You have now completed the two practice trials.
-
-    In this experiment, you will listen to a variety of spoken sentences and phrases. 
-
-    Like with the practice trial, you will listen to two audio clips at a time. Your task is to decide which clip of the two sounds more Singlish.
-
-    Some audio clips might sound similar to one another. Please do your best to respond as quickly as possible.
-
-    */
+    timeline.push(practiceinstructions);
 
     /*
     potential logic for generating trials:
@@ -216,7 +177,7 @@
         show_end_time: 8000
     }
 
-    const trial1 = {
+    const practice1 = {
         type: jsPsychPsychophysics,
         stimuli: [
             {
@@ -233,13 +194,75 @@
             visualStim2,
         ],
         choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
-        prompt: 'Press the S or L key to respond.',
+        prompt: `<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>`,
         canvas_height: 500,
         canvas_width: window.innerWidth * 0.7,
     };
+    timeline.push(practice1);
 
-    timeline.push(trial1);
+    const practice2 = {
+        type: jsPsychPsychophysics,
+        stimuli: [
+            {
+                obj_type: 'sound',
+                file: sounds[2],
+                show_start_time: 500 // from the trial start (ms)
+            },
+            visualStim1,
+            {
+                obj_type: 'sound',
+                file: sounds[3],
+                show_start_time: 4000 // from the trial start (ms)
+            },
+            visualStim2,
+        ],
+        choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+        prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
+        canvas_height: 500,
+        canvas_width: window.innerWidth * 0.7,
+    };
+    timeline.push(practice2);
 
+    const practice3 = {
+        type: jsPsychPsychophysics,
+        stimuli: [
+            {
+                obj_type: 'sound',
+                file: sounds[4],
+                show_start_time: 500 // from the trial start (ms)
+            },
+            visualStim1,
+            {
+                obj_type: 'sound',
+                file: sounds[5],
+                show_start_time: 4000 // from the trial start (ms)
+            },
+            visualStim2,
+        ],
+        choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+        prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
+        canvas_height: 500,
+        canvas_width: window.innerWidth * 0.7,
+    };
+    timeline.push(practice3);
+
+    /* REAL trial instructions*/
+    var realinstructions = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+        <p>You will now begin the experiment.</p>
+        <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
+        <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
+        <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
+        <p>Please do your best to respond as quickly as possible.</p>
+        `,
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`,
+        };
+    timeline.push(realinstructions);
+
+    /* REAL TRIALS HERE */
 
     /* survey 1: demographic questions*/
     var survey1 = {
