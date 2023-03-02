@@ -12,6 +12,7 @@
     <script src="jspsych/plugin-survey-text.js"></script>
     <script src="jspsych/plugin-iat-html.js"></script>
     <script src="jspsych/plugin-survey.js"></script>
+    <script src="jspsych/plugin-survey-likert.js"></script>
     <link href="css/survey.css" rel="stylesheet" type="text/css" />
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
 </head>
@@ -319,19 +320,49 @@
           },
           {
             type: 'multi-choice',
-            prompt: "placeholder question for friends",
+            prompt: "Do your friends speak Singlish?",
             name: 'singlish_friends',
             options: ['Yes', 'No'],
             required: true,
           },
           {
+            type: 'likert',
+            prompt: "How often do your friends speak Singlish?",
+            name: 'singlish_friends_frequency',
+            required: true,
+            likert_scale_min_label: 'Never',
+            likert_scale_max_label: 'All the time',
+            likert_scale_values: [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5}
+            ]
+          },
+          {
             type: 'multi-choice',
-            prompt: "placeholder question for family",
+            prompt: "Does your family speak Singlish?",
             name: 'singlish_family',
             options: ['Yes', 'No'],
             required: true,
           },
-        ]
+          {
+            type: 'likert',
+            prompt: "How often does your family speak Singlish?",
+            name: 'singlish_family_frequency',
+            required: true,
+            likert_scale_min_label: 'Never',
+            likert_scale_max_label: 'All the time',
+            likert_scale_values: [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5}
+            ]
+          },
+        ],
       ],
     button_label_finish: 'Continue',
     };
@@ -374,77 +405,24 @@
     timeline.push(survey3);
 
     /* survey 4: language attitude questions */
-    const survey4 = {
-      type: jsPsychSurvey,
-      pages: [
-        [
-          {
-            type: 'html',
-            prompt: `<p style="color: #000000">Please rate how much you agree or disagree with the following statements on a scale of 1 to 5. Select '1' for Strongly Disagree and '5' for Strongly Agree.</p>`,
-          },
-          {
-            type: 'likert',
-            prompt: 'Singlish is just bad English.',
-            name: 'likert_badenglish',
-            required: true,
-            likert_scale_min_label: 'Strongly Disagree',
-            likert_scale_max_label: 'Strongly Agree',
-            likert_scale_values: [
-              {value: 1},
-              {value: 2},
-              {value: 3},
-              {value: 4},
-              {value: 5}
-            ]
-          }, 
-          {
-            type: 'likert',
-            prompt: 'Singlish is the only thing that really makes us Singaporean.',
-            name: 'likert_singaporean',
-            required: true,
-            likert_scale_min_label: 'Strongly Disagree',
-            likert_scale_max_label: 'Strongly Agree',
-            likert_scale_values: [
-              {value: 1},
-              {value: 2},
-              {value: 3},
-              {value: 4},
-              {value: 5}
-            ]
-          },
-          {
-            type: 'likert',
-            prompt: 'Singlish unites the different races of Singapore.',
-            name: 'likert_race',
-            required: true,
-            likert_scale_min_label: 'Strongly Disagree',
-            likert_scale_max_label: 'Strongly Agree',
-            likert_scale_values: [
-              {value: 1},
-              {value: 2},
-              {value: 3},
-              {value: 4},
-              {value: 5}
-            ]
-          },  
-          {
-            type: 'likert',
-            prompt: 'It would be better for Singapore if Singlish did not exist.',
-            name: 'likert_exist',
-            required: true,
-            likert_scale_min_label: 'Strongly Disagree',
-            likert_scale_max_label: 'Strongly Agree',
-            likert_scale_values: [
-              {value: 1},
-              {value: 2},
-              {value: 3},
-              {value: 4},
-              {value: 5}
-            ]
-          },
+    var likert_scale = [
+      "Strongly Disagree", 
+      "Disagree", 
+      "Neutral", 
+      "Agree", 
+      "Strongly Agree"
+    ];
 
-        ],
+    var survey4 = {
+      type: jsPsychSurveyLikert,
+      preamble: `Please rate how much you agree or disagree with the following statements.`,
+      questions: [
+        {prompt: "Singlish is just bad English.", name: 'likert_badenglish', labels: likert_scale, required: true},
+        {prompt: "Singlish is the only thing that really makes us Singaporean.", name: 'likert_singaporean', labels: likert_scale, required: true},
+        {prompt: "Singlish unites the different races of Singapore.", name: 'likert_race', labels: likert_scale, required: true},
+        {prompt: "It would be better for Singapore if Singlish did not exist.", name: 'likert_exist', labels: likert_scale, required: true},
       ],
+      randomize_question_order: true,
     };
     timeline.push(survey4);
 

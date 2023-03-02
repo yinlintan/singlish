@@ -64,6 +64,16 @@
     margin-left: 25vw;
 }
 
+.jspsych-survey-likert-statement {
+    font: 17px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.jspsych-survey-likert-opt-label {
+    color: #000000;
+}
+
 .continue-btn,
 .jspsych-btn, input[type="button" i] {
     margin-left: 0px;
