@@ -28,11 +28,6 @@
     font-weight: 300;
 }
 
-.visual-play p {
-    font-size: 17px;
-    font-weight: 600;
-}
-
 .visual-play {
     display: inline-block;
     margin: 5px;
@@ -43,6 +38,11 @@
     background: #d3d3d3;
     font-size: 50px;
     color: #000000;
+    font-weight: 600;
+}
+
+.visual-play p {
+    font-size: 17px;
     font-weight: 600;
 }
 
