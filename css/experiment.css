@@ -10,6 +10,42 @@
     font-weight: 300;
 }
 
+.visual {
+    display: inline-block;
+    margin: 5px;
+    padding-top: 80px;
+    width: 300px;
+    text-align: center;
+    height: 150px;
+    background: #eeeeee;
+    font-size: 50px;
+    color: #000000;
+    font-weight: 300;
+}
+
+.visual p {
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.visual-play p {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.visual-play {
+    display: inline-block;
+    margin: 5px;
+    padding-top: 80px;
+    width: 300px;
+    text-align: center;
+    height: 150px;
+    background: #d3d3d3;
+    font-size: 50px;
+    color: #000000;
+    font-weight: 600;
+}
+
 .sv_main.sv_default_css input {
     border: 1px solid #000000;
 }

@@ -147,6 +147,27 @@
         };
     timeline.push(practiceinstructions);
 
+    /* sample trial page */
+    var sampletrial = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+        <p>When no clips are playing:</p>
+        <center>
+        <div class="visual">Clip 1<p>Press "S"</p></div>
+        <div class="visual">Clip 2<p>Press "L"</p></div></center>
+        <p style="text-align:center">Which clip sounds more Singlish?</p></div>
+        <BR><BR>
+        <p>When "Clip 1" is playing:</p>
+        <center>
+        <div class="visual-play">Clip 1<p>Press "S"</p></div>
+        <div class="visual">Clip 2<p>Press "L"</p></div></center>
+        <p style="text-align:center">Which clip sounds more Singlish?</p></div>
+        `,
+        choices: ["Continue"],
+        button_html: `<button class="continue-btn">%choice%</button>`
+    };
+    timeline.push(sampletrial);
+
     /*
     potential logic for generating trials:
     -- use JSPsychophysics
