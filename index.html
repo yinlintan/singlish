@@ -13,6 +13,7 @@
     <script src="jspsych/plugin-iat-html.js"></script>
     <script src="jspsych/plugin-survey.js"></script>
     <script src="jspsych/plugin-survey-likert.js"></script>
+    <script src="jspsych/plugin-survey-html-form.js"></script>
     <script src="jspsych/plugin-cloze.js"></script>
     <link href="css/survey.css" rel="stylesheet" type="text/css" />
     <link href="css/experiment.css" rel="stylesheet" type="text/css" />
@@ -417,16 +418,18 @@
     timeline.push(survey2);
 
     /* survey 3: open-ended singlish questions */
+
+    var singlish_description = {
+        type: jsPsychSurveyHtmlForm,
+        preamble: '<p>What are three words that come to mind when you think of Singlish?</p>',
+        html: '<p><input name="word1" type="text" placeholder="Word 1" required><BR><BR><input name="word2" type="text" placeholder="Word 2" required><BR><BR><input name="word3" type="text" placeholder="Word 3" required></p>'
+    };
+    timeline.push(singlish_description)
+
     var survey3 = {
       type: jsPsychSurvey,
       pages: [
         [
-          {
-            type: 'text',
-            prompt: "What are three words that come to mind when you think of Singlish?", 
-            name: 'singlish_description',
-            required: true,
-          },
           {
             type: 'text',
             prompt: "In your opinion, when and/or where is it acceptable to use Singlish? When and/or where is it not acceptable to use Singlish?",
