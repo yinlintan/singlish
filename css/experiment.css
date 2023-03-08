@@ -129,6 +129,14 @@ button, .continue-btn,
     color: #000000;
 }
 
+input[type="text" i] {
+  height: calc(2em + 1px);
+  border: 1px solid #000000;
+  font-size: 17px;
+  color: #6d7072;
+  padding-left: 5px;
+}
+
 p {
     font-family: Helvetica, system-ui,
         -apple-system,
