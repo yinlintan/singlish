@@ -1,6 +1,21 @@
 let timeline = [];
 
-var preload_trial = {
+const sounds = [ // These are just the practice trial sounds! REAL trial sounds are in the audio folder
+    '../practice/trial1_clip1.wav',
+    '../practice/trial1_clip2.wav',
+    '../practice/trial2_clip1.wav',
+    '../practice/trial2_clip2.wav',
+    '../practice/trial3_clip1.wav',
+    '../practice/trial3_clip2.wav'
+];
+
+// Preloading files are needed to present the stimuli accurately.
+const preload_practice = {
+    type: jsPsychPreload,
+    audio: sounds,
+}
+
+let preload_trial = {
     type: jsPsychPreload,
     audio: preload_exp,
     max_load_time: 120000 // 2 minutes
@@ -78,7 +93,7 @@ Put one of the deleted processed audio clips and have them type in the last word
 */
 const soundcheck = {
     type: jsPsychCloze,
-    text: `<center><BR><BR><audio controls src="./soundcheck.wav"></audio></center><BR><BR>Listen carefully to the audio clip above. Type the <b>last word</b> that was said into the blank below and press "Continue".<BR><BR>% friends %`,
+    text: `<center><BR><BR><audio controls src="../soundcheck.wav"></audio></center><BR><BR>Listen carefully to the audio clip above. Type the <b>last word</b> that was said into the blank below and press "Continue".<BR><BR>% friends %`,
     check_answers: true,
     button_text: 'Continue',
     mistake_fn: function(){alert("Wrong answer. Please make sure your audio is working properly and try again.")}
@@ -123,15 +138,6 @@ var sampletrial = {
     button_html: `<button class="continue-btn">%choice%</button>`
 };
 timeline.push(sampletrial);
-
-/*
-potential logic for generating trials:
--- use JSPsychophysics
--- have four stimuli: two visual and two sound, sync up start  time of pairs of visual and sound
--- should imitate will's set-up; generate array of randomized trials then "fill-in" to trial template
--- need scripts: 1) randomly generating audio objects and preload (similar to Will's), 
-                 2) using trial objects to populate Psychophysics trial templates
-*/
 
 // needs to fix css and styling
 const visualStim1 = {
@@ -244,6 +250,8 @@ var realinstructions = {
 timeline.push(realinstructions);
 
 /* REAL TRIALS HERE */
+
+
 
 /* survey 1: demographic questions*/
 var survey1 = {
