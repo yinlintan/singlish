@@ -1,19 +1,27 @@
-import fs from 'fs';
-import papa from 'papaparse';
+const fs = require('fs');
+const papa = require('papaparse');
 
-const filepath = 'stimuli/stimuli.csv';
-const file = fs.createReadStream(filepath);
+function parseCsvFile(filePath) {
+    return new Promise((resolve, reject) => {
+        const file = fs.createReadStream(filePath);
+        const results = [];
 
-var stimuliData = [];
+        file.on('data', (chunk) => {
+            const parsedData = papa.parse(chunk.toString(), {
+                header: true,
+                skipEmptyLines: true,
+            });
+            results.push(...parsedData.data);
+        });
 
-papa.parse(file, {
-    header: true,
-    step: function (result) {
-        stimuliData.push(result.data)
-    },
-    complete: function (results, file) {
-        console.log('Complete', stimuliData[0], 'records.');
-    }
-});
+        file.on('end', () => {
+            resolve(results);
+        });
 
-export default stimuliData;
+        file.on('error', (error) => {
+            reject(error);
+        });
+    });
+}
+
+module.exports = parseCsvFile;

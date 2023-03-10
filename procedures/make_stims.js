@@ -1,5 +1,3 @@
-import stimuliData from '../stimuli/convert_csv.js';
-
 const NUM_TRIALS = 20; // per block
 const NUM_CLIPS = 40; // per block
 const NUM_BLOCKS = 6;
@@ -22,7 +20,7 @@ let audio_temp = {
     type: jsPsychAudioKeyboardResponse,
     prompt: 'UNKNOWN',
     trial_ends_after_audio: true,
-    post_trial_gap: 0,
+    post_trial_gap: 500,
     response_allowed_while_playing: false,
     choices: [],
     data: {}
@@ -35,10 +33,15 @@ let response_data = {
 let response_temp = {
     type: jsPsychHtmlKeyboardResponse,
     choices: ['s', 'l'],
-    stimulus: 'UNKNOWN',
+    stimulus: `    
+    <center>
+        <div class="visual">Clip 1<p>Press "S"</p></div>
+        <div class="visual">Clip 2<p>Press "L"</p></div></center>
+        <p style="text-align:center">Which clip sounded more Singlish? Please make your response within 2 seconds.</p>
+    </div>`,
     trial_duration: 4000,
     response_ends_trial: true,
-    post_trial_gap: 1000, // 1s between trials
+    post_trial_gap: 1500, // 1.5s between trials
     data: {},
 }
 
@@ -46,27 +49,27 @@ let response_temp = {
 // let practice_trial_order = generateTrialOrder(practice_id_list, talker_ids);
 // do this for each block!!! how to keep track......
 
-all_block_audio = [];
-all_block_response = [];
+let all_trial_audio_objects = [];
+let all_trial_response_objects = [];
 
-for (i = 0; i < NUM_BLOCKS; i++){
+for (let i = 0; i < NUM_BLOCKS; i++){
     let exp_trial_order = [];
     generateTrialOrder(exp_trial_order, stimuliData, NUM_CLIPS, NUM_TRIALS);
-
     // generate the trial objects
     let exp_audio_objects = [];
     let exp_response_objects = [];
     generateBlankTrials(NUM_TRIALS, exp_audio_objects, exp_response_objects, audio_temp, response_temp, audio_data, response_data);
-    generateTrials(exp_trial_ord, exp_audio_objects, exp_response_objects);
+    generateTrials(exp_trial_order, exp_audio_objects, exp_response_objects);
     
-    all_block_audio.push(exp_audio_objects);
-    all_block_response.push(exp_response_objects);
+    all_trial_audio_objects.push(...exp_audio_objects);
+    all_trial_response_objects.push(...exp_response_objects);
 }
 
 // Create preload array
 let preload_exp = [];
 
 // preload clips from one block (since its the same clips)
-for (let i = 0; i < all_block_audio[0].length; i++) {
-    preload_exp.push(all_block_audio[0][i].stimulus);
+for (let i = 0; i < NUM_TRIALS; i++) {
+    preload_exp.push(all_trial_audio_objects[i][0].stimulus);
+    preload_exp.push(all_trial_audio_objects[i][1].stimulus);
 }

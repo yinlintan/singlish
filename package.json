@@ -2,6 +2,5 @@
   "dependencies": {
     "jquery-csv": "^1.0.21",
     "papaparse": "^5.3.2"
-  },
-  "type": "module"
+  }
 }
