@@ -434,30 +434,6 @@ timeline.push(survey4);
 
 /* emotion scale */
 
-var emotion = {
-    type: jsPsychSurveyLikert,
-    questions: [
-    {
-        prompt: `
-        Please rate how you feel right now using this scale.<BR><BR>
-        <span style="margin-left: 10px; margin-right: 10px; font-size: 30pt">☹️</span>
-        <span style="margin-left: 10px; margin-right: 10px; font-size: 30pt">😞</span>
-        <span style="margin-left: 10px; margin-right: 10px; font-size: 30pt">😐</span>
-        <span style="margin-left: 10px; margin-right: 10px; font-size: 30pt">☺</span>
-        <span style="margin-left: 10px; margin-right: 10px; font-size: 30pt">😄</span>
-        `,
-        labels: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-        ]
-    }
-    ]
-};
-timeline.push(emotion);
-
 /* future study? */
 var futurestudies = {
   type: jsPsychSurvey,
