@@ -1,11 +1,11 @@
-import stimuliData from '../stimuli/convert_csv';
+import stimuliData from '../stimuli/convert_csv.js';
 
-NUM_TRIALS = 20; // per block
-NUM_CLIPS = 40; // per block
-NUM_BLOCKS = 6;
+const NUM_TRIALS = 20; // per block
+const NUM_CLIPS = 40; // per block
+const NUM_BLOCKS = 6;
 
-NUM_SPEAKERS = 10;
-NUM_CLIP_SPEAKER = 4;
+const NUM_SPEAKERS = 10;
+const NUM_CLIP_SPEAKER = 4;
 
 let audio_data = {
     ID: 'UNKNOWN', 
@@ -44,21 +44,29 @@ let response_temp = {
 
 // Create random test orders
 // let practice_trial_order = generateTrialOrder(practice_id_list, talker_ids);
-let exp_trial_order = [];
-generateTrialOrder(exp_trial_order, stimuliData, NUM_CLIPS, NUM_TRIALS);
+// do this for each block!!! how to keep track......
 
-// generate the trial objects
-let exp_audio_objects = [];
-let exp_response_objects = [];
+all_block_audio = [];
+all_block_response = [];
 
-generateBlankTrials(NUM_TRIALS, exp_audio_objects, exp_response_objects, audio_temp, response_temp, audio_data, response_data);
-generateTrials(exp_trial_ord, exp_audio_objects, exp_response_objects);
+for (i = 0; i < NUM_BLOCKS; i++){
+    let exp_trial_order = [];
+    generateTrialOrder(exp_trial_order, stimuliData, NUM_CLIPS, NUM_TRIALS);
+
+    // generate the trial objects
+    let exp_audio_objects = [];
+    let exp_response_objects = [];
+    generateBlankTrials(NUM_TRIALS, exp_audio_objects, exp_response_objects, audio_temp, response_temp, audio_data, response_data);
+    generateTrials(exp_trial_ord, exp_audio_objects, exp_response_objects);
+    
+    all_block_audio.push(exp_audio_objects);
+    all_block_response.push(exp_response_objects);
+}
 
 // Create preload array
 let preload_exp = [];
 
-for (let i = 0; i < exp_audio_objects.length; i++) {
-    if (!(exp_audio_objects[i].data.Same_Talker && exp_audio_objects[i].data.Presentation == "OLD")) {
-        preload_exp.push(exp_audio_objects[i].stimulus);
-    }
+// preload clips from one block (since its the same clips)
+for (let i = 0; i < all_block_audio[0].length; i++) {
+    preload_exp.push(all_block_audio[0][i].stimulus);
 }

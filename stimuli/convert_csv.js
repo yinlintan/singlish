@@ -15,4 +15,5 @@ papa.parse(file, {
         console.log('Complete', stimuliData[0], 'records.');
     }
 });
+
 export default stimuliData;
