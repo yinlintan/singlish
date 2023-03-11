@@ -449,6 +449,26 @@ var survey4 = {
 timeline.push(survey4);
 
 /* emotion scale */
+var emotion = {
+  type: jsPsychSurveyLikert,
+  scale_width: 700,
+  questions: [
+    {
+      prompt: `
+      <p style="font-weight: 500">How do you feel right now? Please indicate how you are feeling using the following scale.</p>
+      <center><img src="../procedures/emotionscale.png"></center>
+      `, 
+      labels: [
+        "1", 
+        "2", 
+        "3", 
+        "4", 
+        "5"
+      ]
+    }
+  ]
+};
+timeline.push(emotion);
 
 /* future study? */
 var futurestudies = {
