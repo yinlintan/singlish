@@ -112,7 +112,7 @@ var practiceinstructions = {
         <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
-        <p><img src="../procedures/keyboard.png"></p>
+        <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
         <p>Please do your best to respond as quickly as possible.</p>
