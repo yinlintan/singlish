@@ -112,7 +112,7 @@ var practiceinstructions = {
         <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
-        <p>IMAGE OF HANDS ON KEYBOARD</p>
+        <p><img src="../procedures/keyboard.png"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
         <p>Please do your best to respond as quickly as possible.</p>
@@ -274,28 +274,28 @@ var survey1 = {
         type: 'multi-choice',
         prompt: "What is your citizenship status?",
         name: 'citizenship',
-        options: ['Singaporean', 'Singapore PR', 'None of the above'],
+        options: ['Singaporean', 'Singapore PR', 'None of the above', 'Prefer not to answer'],
         required: true
       },
       {
         type: 'multi-choice',
         prompt: "What is your gender?",
         name: 'gender',
-        options: ['Male', 'Female', 'Non-binary', 'Other'],
+        options: ['Male', 'Female', 'Non-binary', 'Other', 'Prefer not to answer'],
         required: false,
       },
       {
         type: 'drop-down',
         prompt: "What year were you born?",
         name: 'age',
-        options: ['2002', '2001', '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980', '1979', '1978', '1977', '1976', '1975', '1974', '1973', '1972', '1971', '1970', '1969', '1968', '1967', '1966', '1965', '1964', '1963', '1962', '1961', '1960', '1959', '1958', '1957', '1956', '1955', '1954', '1953', '1952', '1951', '1950', '1949', '1948', '1947', '1946', '1945', '1944', '1943', '1942', '1941', '1940', '1939', '1938', '1937', '1936', '1935', '1934', '1933'],
+        options: ['2002', '2001', '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980', '1979', '1978', '1977', '1976', '1975', '1974', '1973', '1972', '1971', '1970', '1969', '1968', '1967', '1966', '1965', '1964', '1963', '1962', '1961', '1960', '1959', '1958', '1957', '1956', '1955', '1954', '1953', '1952', '1951', '1950', '1949', '1948', '1947', '1946', '1945', '1944', '1943', '1942', '1941', '1940', '1939', '1938', '1937', '1936', '1935', '1934', '1933', 'Prefer not to answer'],
         required: true,
       },
       {
         type: 'multi-select',
         prompt: "What is your race? Please select all that apply.",
         name: 'race',
-        options: ['Chinese', 'Malay', 'Indian', 'Other'],
+        options: ['Chinese', 'Malay', 'Indian', 'Other', 'Prefer not to answer'],
         required: true,
       },
       {
@@ -310,7 +310,7 @@ var survey1 = {
         type: 'multi-choice',
         prompt: "What is your highest level of education?",
         name: 'education',
-        options: ['No qualification', 'Primary school', 'Secondary school', 'Junior college/Polytechnic', 'Undergraduate degree', 'Postgraduate degree'],
+        options: ['No qualification', 'Primary school', 'Secondary school', 'Junior college/Polytechnic', 'Undergraduate degree', 'Postgraduate degree', 'Prefer not to answer'],
         required: false,
       }
     ]
