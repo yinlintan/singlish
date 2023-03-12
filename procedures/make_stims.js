@@ -2,6 +2,8 @@ const NUM_TRIALS = 20; // per block
 const NUM_CLIPS = 40; // per block
 const NUM_BLOCKS = 6;
 
+const NUM_PRACTICE = 3;
+
 const NUM_SPEAKERS = 10;
 const NUM_CLIP_SPEAKER = 4;
 
@@ -19,8 +21,9 @@ let audio_temp = {
     stimulus: 'UNKNOWN',
     type: jsPsychAudioKeyboardResponse,
     prompt: 'UNKNOWN',
-    trial_ends_after_audio: true,
-    post_trial_gap: 500,
+    trial_ends_after_audio: false,
+    trial_duration: 0,
+    post_trial_gap: 0,
     response_allowed_while_playing: false,
     choices: [],
     data: {}
@@ -37,11 +40,11 @@ let response_temp = {
     <center>
         <div class="visual">Clip 1<p>Press "S"</p></div>
         <div class="visual">Clip 2<p>Press "L"</p></div></center>
-        <p style="text-align:center">Which clip sounded more Singlish? Please make your response within 2 seconds.</p>
+        <p style="text-align:center">Which clip sounds more Singlish?</p>
     </div>`,
-    trial_duration: 4000,
+    //trial_duration: 4000,
     response_ends_trial: true,
-    post_trial_gap: 1500, // 1.5s between trials
+    post_trial_gap: 1000, // 1s between trials
     data: {},
 }
 
@@ -73,3 +76,8 @@ for (let i = 0; i < NUM_TRIALS; i++) {
     preload_exp.push(all_trial_audio_objects[i][0].stimulus);
     preload_exp.push(all_trial_audio_objects[i][1].stimulus);
 }
+
+let practice_trial_audio_objects = [];
+let practice_trial_response_objects = [];
+generateBlankTrials(NUM_PRACTICE, practice_trial_audio_objects, practice_trial_response_objects, audio_temp, response_temp, audio_data, response_data);
+generatePracticeTrials(practice_trial_audio_objects, practice_trial_response_objects);

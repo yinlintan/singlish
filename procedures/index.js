@@ -21,10 +21,20 @@ const sounds = [ // These are just the practice trial sounds! REAL trial sounds 
 ];
 
 // Preloading files are needed to present the stimuli accurately.
-const preload = {
+const preload_practice = {
   type: jsPsychPreload,
   audio: sounds,
+  max_load_time: 120000 // 2 minutes
 }
+
+var preload_trial = {
+  type: jsPsychPreload,
+  audio: preload_exp,
+  max_load_time: 120000 // 2 minutes
+}
+
+timeline.push(preload_practice);
+timeline.push(preload_trial);
 
 var instructions = {
   type: jsPsychHtmlButtonResponse,
@@ -142,99 +152,106 @@ var sampletrial = {
 };
 timeline.push(sampletrial);
 
-// needs to fix css and styling
-const visualStim1 = {
-  obj_type: 'rect', // means a rectangle
-  startX: window.innerWidth * 0.15, // location in the canvas
-  startY: 0,
-  width: window.innerWidth * 0.38, // of the rectangle
-  height: 500,
-  line_color: 'white',
-  fill_color: 'white',
-  show_start_time: 500, // from the trial start (ms)
-  show_end_time: 3500,
+/* practice trials */
+for (let i = 0; i < practice_trial_audio_objects.length; i++){
+  timeline.push(practice_trial_audio_objects[i][0]);
+  timeline.push(practice_trial_audio_objects[i][1]);
+  timeline.push(practice_trial_response_objects[i]);
 }
 
-const visualStim2 = {
-  obj_type: 'rect',
-  startX: window.innerWidth * 0.52, // location in the canvas
-  startY: 0,
-  width: window.innerWidth * 0.38, // of the rectangle
-  height: 500,
-  line_color: 'white',
-  fill_color: 'white',
-  show_start_time: 4000, // from the trial start (ms)
-  show_end_time: 8000
-}
+// // needs to fix css and styling
+// const visualStim1 = {
+//   obj_type: 'rect', // means a rectangle
+//   startX: window.innerWidth * 0.15, // location in the canvas
+//   startY: 0,
+//   width: window.innerWidth * 0.38, // of the rectangle
+//   height: 500,
+//   line_color: 'white',
+//   fill_color: 'white',
+//   show_start_time: 500, // from the trial start (ms)
+//   show_end_time: 3500,
+// }
 
-const practice1 = {
-  type: jsPsychPsychophysics,
-  stimuli: [
-    {
-      obj_type: 'sound',
-      file: sounds[0],
-      show_start_time: 500 // from the trial start (ms)
-    },
-    visualStim1,
-    {
-      obj_type: 'sound',
-      file: sounds[1],
-      show_start_time: 4000 // from the trial start (ms)
-    },
-    visualStim2,
-  ],
-  choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
-  prompt: `<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>`,
-  canvas_height: 500,
-  canvas_width: window.innerWidth * 0.7,
-};
-timeline.push(practice1);
+// const visualStim2 = {
+//   obj_type: 'rect',
+//   startX: window.innerWidth * 0.52, // location in the canvas
+//   startY: 0,
+//   width: window.innerWidth * 0.38, // of the rectangle
+//   height: 500,
+//   line_color: 'white',
+//   fill_color: 'white',
+//   show_start_time: 4000, // from the trial start (ms)
+//   show_end_time: 8000
+// }
 
-const practice2 = {
-  type: jsPsychPsychophysics,
-  stimuli: [
-    {
-      obj_type: 'sound',
-      file: sounds[2],
-      show_start_time: 500 // from the trial start (ms)
-    },
-    visualStim1,
-    {
-      obj_type: 'sound',
-      file: sounds[3],
-      show_start_time: 4000 // from the trial start (ms)
-    },
-    visualStim2,
-  ],
-  choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
-  prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
-  canvas_height: 500,
-  canvas_width: window.innerWidth * 0.7,
-};
-timeline.push(practice2);
+// const practice1 = {
+//   type: jsPsychPsychophysics,
+//   stimuli: [
+//     {
+//       obj_type: 'sound',
+//       file: sounds[0],
+//       show_start_time: 500 // from the trial start (ms)
+//     },
+//     visualStim1,
+//     {
+//       obj_type: 'sound',
+//       file: sounds[1],
+//       show_start_time: 4000 // from the trial start (ms)
+//     },
+//     visualStim2,
+//   ],
+//   choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+//   prompt: `<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>`,
+//   canvas_height: 500,
+//   canvas_width: window.innerWidth * 0.7,
+// };
+// timeline.push(practice1);
 
-const practice3 = {
-  type: jsPsychPsychophysics,
-  stimuli: [
-    {
-      obj_type: 'sound',
-      file: sounds[4],
-      show_start_time: 500 // from the trial start (ms)
-    },
-    visualStim1,
-    {
-      obj_type: 'sound',
-      file: sounds[5],
-      show_start_time: 4000 // from the trial start (ms)
-    },
-    visualStim2,
-  ],
-  choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
-  prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
-  canvas_height: 500,
-  canvas_width: window.innerWidth * 0.7,
-};
-timeline.push(practice3);
+// const practice2 = {
+//   type: jsPsychPsychophysics,
+//   stimuli: [
+//     {
+//       obj_type: 'sound',
+//       file: sounds[2],
+//       show_start_time: 500 // from the trial start (ms)
+//     },
+//     visualStim1,
+//     {
+//       obj_type: 'sound',
+//       file: sounds[3],
+//       show_start_time: 4000 // from the trial start (ms)
+//     },
+//     visualStim2,
+//   ],
+//   choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+//   prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
+//   canvas_height: 500,
+//   canvas_width: window.innerWidth * 0.7,
+// };
+// timeline.push(practice2);
+
+// const practice3 = {
+//   type: jsPsychPsychophysics,
+//   stimuli: [
+//     {
+//       obj_type: 'sound',
+//       file: sounds[4],
+//       show_start_time: 500 // from the trial start (ms)
+//     },
+//     visualStim1,
+//     {
+//       obj_type: 'sound',
+//       file: sounds[5],
+//       show_start_time: 4000 // from the trial start (ms)
+//     },
+//     visualStim2,
+//   ],
+//   choices: ['s', 'l'], // The participant can respond to the stimuli using the 'y' or 'n' key.
+//   prompt: '<center>Which clip sounds more Singlish? Press "S" for the first clip OR "L" for the second clip.</center>',
+//   canvas_height: 500,
+//   canvas_width: window.innerWidth * 0.7,
+// };
+// timeline.push(practice3);
 
 /* REAL trial instructions*/
 var realinstructions = {
@@ -253,14 +270,13 @@ var realinstructions = {
 };
 timeline.push(realinstructions);
 
-/* REAL TRIALS HERE */
+/* REAL TRIALS */
 for (i = 0; i < (NUM_TRIALS * NUM_BLOCKS); i++) { // for every trial
   timeline.push(all_trial_audio_objects[i][0]); // first audio obj
   timeline.push(all_trial_audio_objects[i][1]); // second audio obj
   timeline.push(all_trial_response_objects[i]); // response
 }
-// console.log("trial audio length", all_trial_audio_objects.length);
-// console.log("trial response length", all_trial_response_objects.length);
+
 /* survey 1: demographic questions*/
 var survey1 = {
   type: jsPsychSurvey,

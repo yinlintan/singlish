@@ -94,6 +94,7 @@ function generateTrials(trial_ord, audio_trials, response_trials) {
         // update data into template
         firstAudio.stimulus = firstAudioPath;
         firstAudio.prompt = firstPrompt;
+        firstAudio.trial_duration = parseFloat(firstClip['Duration (s)']) * 1000 + 500;
         firstAudio.data.ID = firstClip['Clip ID'];
         firstAudio.data.talker = firstClip['Speaker ID'];
         firstAudio.data.gender = firstClip['Gender'];
@@ -104,6 +105,7 @@ function generateTrials(trial_ord, audio_trials, response_trials) {
 
         secondAudio.stimulus = secondAudioPath;
         secondAudio.prompt = secondPrompt;
+        secondAudio.trial_duration = parseFloat(secondClip['Duration (s)']) * 1000;
         secondAudio.data.ID = secondClip['Clip ID'];
         secondAudio.data.talker = secondClip['Speaker ID'];
         secondAudio.data.gender = secondClip['Gender'];
@@ -111,5 +113,34 @@ function generateTrials(trial_ord, audio_trials, response_trials) {
         secondAudio.data.duration = secondClip['Duration (s)'];
         secondAudio.data.speech_rate = secondClip['Speech rate (words per s)'];
         secondAudio.data.transcript = secondClip['Transcription'];
+    }
+}
+
+function generatePracticeTrials(audio_trials, response_trials) {
+    let firstPrompt = `       
+        <center>
+            <div class="visual-play">Clip 1<p>Press "S"</p></div>
+            <div class="visual">Clip 2<p>Press "L"</p></div>
+        </center>
+        <p style="text-align:center">Which clip sounds more Singlish?</p>`; // visual stimuli for clip 1, tbd
+    let secondPrompt = `            
+        <center>
+            <div class="visual">Clip 1<p>Press "S"</p></div>
+            <div class="visual-play">Clip 2<p>Press "L"</p></div>
+        </center>
+        <p style="text-align:center">Which clip sounds more Singlish?</p>`; // visual stimuli for clip 2, tbd
+
+    for (let i = 0; i < audio_trials.length; i++){
+        let [firstAudio, secondAudio] = audio_trials[i];
+        let trial_num = (i+1).toString();
+        let firstAudioPath = '../practice/' + 'trial' + trial_num + '_clip1' + '.wav';
+        let secondAudioPath = '../practice/' + 'trial' + trial_num + '_clip2' + '.wav';
+
+        firstAudio.stimulus = firstAudioPath;
+        firstAudio.prompt = firstPrompt;
+        firstAudio.trial_duration = 2000;
+        secondAudio.stimulus = secondAudioPath;
+        secondAudio.prompt = secondPrompt;
+        secondAudio.trial_duration = 2000;
     }
 }
