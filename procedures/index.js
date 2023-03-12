@@ -109,13 +109,12 @@ var practiceinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p>You will now begin three practice trials.</p>
-        <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>In each trial, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
-        <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
-        <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
-        <p>Please do your best to respond as quickly as possible.</p>
+        <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
+        <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
         `,
   choices: ["Continue"],
   button_html: `<button class="continue-btn">%choice%</button>`,
@@ -242,11 +241,12 @@ var realinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p>You will now begin the experiment.</p>
-        <p>On the next page, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
-        <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
-        <p>If the <strong>first clip</strong> sounds more Singlish, please press <strong>S</strong>.</p>
-        <p>If the <strong>second clip</strong> sounds more Singlish, please press <strong>L</strong>.</p>
-        <p>Please do your best to respond as quickly as possible.</p>
+        <p>In each trial, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
+        <p>You might hear some clips that sound similar to each other, but please do your best to respond as quickly as possible.</p>
+        <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
+        <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p>Press "Continue" to begin the experiment.</p>
         `,
   choices: ["Continue"],
   button_html: `<button class="continue-btn">%choice%</button>`,
@@ -320,7 +320,23 @@ var survey1 = {
 timeline.push(survey1);
 
 /* survey 2: language background questions */
-var survey2 = {
+var survey2a = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: `<p>What languages do you speak?</p>
+  <p>Please indicate up to 5 languages and list them <b>in order of descending frequency of use</b>, i.e., Language 1 is the most frequently spoken language, Language 2 the second-most frequently spoken language, and so on.</p>
+  <p>For example, if English is Language 1, Malay is Language 2, and Hokkien is Language 3, that means you speak English the most frequently, Malay the second-most frequently, and Hokkien the least frequently.
+  </p>`,
+  html: `<p>
+  <input name="lang1" type="text" placeholder="Language 1" required><BR><BR>
+  <input name="lang2" type="text" placeholder="Language 2"><BR><BR>
+  <input name="lang3" type="text" placeholder="Language 3"><BR><BR>
+  <input name="lang4" type="text" placeholder="Language 4"><BR><BR>
+  <input name="lang5" type="text" placeholder="Language 5">
+  </p>`
+};
+timeline.push(survey2a);
+
+var survey2b = {
   type: jsPsychSurvey,
   pages: [
     [
@@ -386,18 +402,18 @@ var survey2 = {
   ],
   button_label_finish: 'Continue',
 };
-timeline.push(survey2);
+timeline.push(survey2b);
 
 /* survey 3: open-ended singlish questions */
 
-var singlish_description = {
+var survey3a = {
   type: jsPsychSurveyHtmlForm,
   preamble: '<p>What are three words that come to mind when you think of Singlish?</p>',
   html: '<p><input name="word1" class="try" type="text" placeholder="Word 1" required><BR><BR><input name="word2" type="text" placeholder="Word 2" required><BR><BR><input name="word3" type="text" placeholder="Word 3" required></p>'
 };
-timeline.push(singlish_description)
+timeline.push(survey3a);
 
-var survey3 = {
+var survey3b = {
   type: jsPsychSurvey,
   pages: [
     [
@@ -424,7 +440,7 @@ var survey3 = {
   ],
   button_label_finish: 'Continue',
 };
-timeline.push(survey3);
+timeline.push(survey3b);
 
 /* survey 4: language attitude questions */
 var likert_scale = [
