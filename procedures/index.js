@@ -2,7 +2,8 @@
 var jsPsych = initJsPsych({
   show_progress_bar: true,
   on_finish: function () {
-    proliferate.submit({ "trials": data.values() });
+    //jsPsych.data.displayData();
+    proliferate.submit({ "trials": jsPsych.data.get().values() });
   },
   default_iti: 250
 });

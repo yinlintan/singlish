@@ -95,6 +95,7 @@ function generateTrials(trial_ord, audio_trials, response_trials) {
         firstAudio.stimulus = firstAudioPath;
         firstAudio.prompt = firstPrompt;
         firstAudio.trial_duration = parseFloat(firstClip['Duration (s)']) * 1000 + 500;
+        //console.log(firstAudio.trial_duration);
         firstAudio.data.ID = firstClip['Clip ID'];
         firstAudio.data.talker = firstClip['Speaker ID'];
         firstAudio.data.gender = firstClip['Gender'];
