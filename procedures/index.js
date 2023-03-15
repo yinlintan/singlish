@@ -45,7 +45,7 @@ var instructions = {
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
             <p>This experiment should be completed on a desktop or laptop.</p>
-            <p>The experiment will take approximately 40 minutes and you will compensated for your time.</p>
+            <p>The experiment will take approximately 40 minutes and you will compensated 5 USD for your time.</p>
         </div>
       `,
   choices: ["Continue"],
@@ -118,39 +118,24 @@ timeline.push(soundcheck);
 var practiceinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-        <p>You will now begin three practice trials.</p>
-        <p>In each trial, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
-        <p>Your task is to decide <strong>which clip sounds more Singlish</strong> as quickly as possible.</p>
+  <center>
+        <p>You will now begin the practice trials.</p>
+        <p>In each trial, two audio clips will play one after another. You will hear a variety of sentences and phrases spoken by different talkers.</p>
+        <p>Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
+        <p>You might hear some clips that sound similar to each other, but please do your best to respond as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
+        <p><b>Please answer as quickly and accurately as possible.</b></p> 
+  </center>
         `,
   choices: ["Continue"],
   button_html: `<button class="continue-btn">%choice%</button>`,
 };
 timeline.push(practiceinstructions);
-
-/* sample trial page */
-var sampletrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-        <p>When no clips are playing:</p>
-        <center>
-        <div class="visual">Clip 1<p>Press "S"</p></div>
-        <div class="visual">Clip 2<p>Press "L"</p></div></center>
-        <p style="text-align:center">Which clip sounds more Singlish?</p></div>
-        <BR><BR>
-        <p>When "Clip 1" is playing:</p>
-        <center>
-        <div class="visual-play">Clip 1<p>Press "S"</p></div>
-        <div class="visual">Clip 2<p>Press "L"</p></div></center>
-        <p style="text-align:center">Which clip sounds more Singlish?</p></div>
-        `,
-  choices: ["Continue"],
-  button_html: `<button class="continue-btn">%choice%</button>`
-};
-timeline.push(sampletrial);
 
 /* practice trials */
 for (let i = 0; i < practice_trial_audio_objects.length; i++){
@@ -163,13 +148,19 @@ for (let i = 0; i < practice_trial_audio_objects.length; i++){
 var realinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
+  <center>
         <p>You will now begin the experiment.</p>
-        <p>In each trial, two audio clips will play one after another. Each audio clip will only be played once and you will not be able to replay them.</p>
+        <p>In each trial, two audio clips will play one after another. You will hear a variety of sentences and phrases spoken by different talkers.</p>
+        <p>Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
         <p>You might hear some clips that sound similar to each other, but please do your best to respond as quickly as possible.</p>
+        <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
+        <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
-        <p>Press "Continue" to begin the experiment.</p>
+        <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
+        <p><b>Please answer as quickly and accurately as possible.</b></p> 
+  </center>
         `,
   choices: ["Continue"],
   button_html: `<button class="continue-btn">%choice%</button>`,
@@ -330,7 +321,7 @@ timeline.push(survey2b);
 
 var survey3a = {
   type: jsPsychSurveyHtmlForm,
-  preamble: '<p>What are three words that come to mind when you think of Singlish?</p>',
+  preamble: '<p>List three words that come to mind for the clips you think sounded more Singlish:</p>',
   html: '<p><input name="word1" class="try" type="text" placeholder="Word 1" required><BR><BR><input name="word2" type="text" placeholder="Word 2" required><BR><BR><input name="word3" type="text" placeholder="Word 3" required></p>'
 };
 timeline.push(survey3a);
@@ -433,8 +424,7 @@ var payment = {
     {
       prompt: `
             <div class="text" id="trial">
-            <p>Thank you for completing the experiment!</p>
-            <p>We will contact you soon for participant reimbursement purposes. Please provide your email address in the field below.</p>
+            <p>Please provide your email address in the field below for participant reimbursement purposes.</p>
             </div>
             `,
       name: 'payment'
@@ -442,6 +432,19 @@ var payment = {
   ]
 };
 timeline.push(payment);
+
+/* thank you */
+var thankyou = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <div class="text" id="trial">
+            <p>Thank you for completing the experiment!</p>
+            <p>We will contact you soon to arrange for participant reimbursement.</p>
+        </div>
+      `,
+  choices: [" "],
+};
+timeline.push(thankyou);
 
 /* start the experiment */
 jsPsych.run(timeline);
