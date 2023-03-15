@@ -149,7 +149,7 @@ var realinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
   <center>
-        <p>You will now begin the experimen.</p>
+        <p>You will now begin the experiment.</p>
         <p>In each trial, two audio clips will play one after another. You will hear a variety of sentences and phrases spoken by different talkers.</p>
         <p>Each audio clip will only be played once and you will not be able to replay them.</p>
         <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
