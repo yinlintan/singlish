@@ -434,15 +434,14 @@ var payment = {
 timeline.push(payment);
 
 /* thank you */
-var thankyou = {
-  type: jsPsychHtmlButtonResponse,
+const thankyou = {
+  type: jsPsychHtmlKeyboardResponse,
   stimulus: `
         <div class="text" id="trial">
             <p>Thank you for completing the experiment!</p>
             <p>We will contact you soon to arrange for participant reimbursement.</p>
         </div>
       `,
-  choices: [" "],
 };
 timeline.push(thankyou);
 
