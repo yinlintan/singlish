@@ -168,12 +168,13 @@ var realinstructions = {
 };
 timeline.push(realinstructions);
 
-/* REAL TRIALS */
+
+/* REAL TRIALS
 for (i = 0; i < (NUM_TRIALS * NUM_BLOCKS); i++) { // for every trial
   timeline.push(all_trial_audio_objects[i][0]); // first audio obj
   timeline.push(all_trial_audio_objects[i][1]); // second audio obj
   timeline.push(all_trial_response_objects[i]); // response
-}
+} */
 
 /* survey 1: demographic questions*/
 var survey1 = {
