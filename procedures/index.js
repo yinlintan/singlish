@@ -3,6 +3,7 @@ var jsPsych = initJsPsych({
   show_progress_bar: true,
   on_finish: function () {
     //jsPsych.data.displayData();
+    window.location = "/procedures/thanks.html";
     proliferate.submit({ "trials": jsPsych.data.get().values() });
   },
   default_iti: 250
