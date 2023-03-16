@@ -42,7 +42,7 @@ let response_temp = {
         <div class="visual">Clip 2<p>Press "L"</p></div></center>
         <p style="text-align:center">Which clip sounds more Singlish?</p>
     </div>`,
-    //trial_duration: 4000,
+    trial_duration: 2000, // 2s for trial
     response_ends_trial: true,
     post_trial_gap: 1000, // 1s between trials
     data: {},
