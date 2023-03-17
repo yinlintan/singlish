@@ -5,12 +5,12 @@ var stimuliData = [
     "Gender": "male",
     "VER 3 Name": "JOHN_01",
     "Clip ID": "M1_01",
-    "Duration (s)": "2.46",
+    "Duration (s)": "2.181",
     "# of IPs": "1",
-    "# of words": "14",
-    "Speech rate (words per s)": "5.691056911",
-    "Link": "https://youtu.be/hIkTc35YXAA?t=1019",
-    "Transcription": "I will either tell them or I will ask them to come and watch"
+    "# of words": "11",
+    "Speech rate (words per s)": "5.043558001",
+    "Link": "https://youtu.be/-jbJeIZ0mJY?t=108",
+    "Transcription": "Uh I was on the verge of starting my first relationship"
   },
   {
     "Speaker ID": "M1",
@@ -18,12 +18,12 @@ var stimuliData = [
     "Gender": "male",
     "VER 3 Name": "JOHN_02",
     "Clip ID": "M1_02",
-    "Duration (s)": "1.907",
+    "Duration (s)": "1.542",
     "# of IPs": "1",
-    "# of words": "10",
-    "Speech rate (words per s)": "5.24383849",
-    "Link": "https://youtu.be/BsLVsJNv4wc?t=1212",
-    "Transcription": "You do none of that you don't become more beautiful"
+    "# of words": "7",
+    "Speech rate (words per s)": "4.539559014",
+    "Link": "https://youtu.be/-jbJeIZ0mJY?t=108",
+    "Transcription": "So you you don't have to like"
   },
   {
     "Speaker ID": "M1",
@@ -35,8 +35,8 @@ var stimuliData = [
     "# of IPs": "1",
     "# of words": "11",
     "Speech rate (words per s)": "5.087881591",
-    "Link": "https://youtu.be/BsLVsJNv4wc?t=2075",
-    "Transcription": "But in her heart she's a softie she's a cinnamon roll"
+    "Link": "https://youtu.be/-jbJeIZ0mJY?t=108",
+    "Transcription": "It was not terrible because at that point of my life"
   },
   {
     "Speaker ID": "M1",
@@ -44,12 +44,12 @@ var stimuliData = [
     "Gender": "male",
     "VER 3 Name": "JOHN_06",
     "Clip ID": "M1_04",
-    "Duration (s)": "1.984",
+    "Duration (s)": "2.266",
     "# of IPs": "1",
-    "# of words": "6",
-    "Speech rate (words per s)": "3.024193548",
-    "Link": "https://youtu.be/7_-4TXv6pvY?t=728",
-    "Transcription": "That will be the vast majority"
+    "# of words": "8",
+    "Speech rate (words per s)": "3.530450132",
+    "Link": "https://youtu.be/-jbJeIZ0mJY?t=108",
+    "Transcription": "She travelled to Hong Kong with her family"
   },
   {
     "Speaker ID": "M2",
@@ -417,55 +417,55 @@ var stimuliData = [
   },
   {
     "Speaker ID": "F4",
-    "Name": "LEEN",
+    "Name": "JOSEPHINE",
     "Gender": "female",
     "VER 3 Name": "LEEN_03",
     "Clip ID": "F4_01",
-    "Duration (s)": "1.703",
+    "Duration (s)": "1.921",
     "# of IPs": "1",
-    "# of words": "8",
-    "Speech rate (words per s)": "4.697592484",
+    "# of words": "9",
+    "Speech rate (words per s)": "4.685059865",
     "Link": "",
-    "Transcription": "So I opened the door to my bedroom"
+    "Transcription": "Are on the same level I think that's ok"
   },
   {
     "Speaker ID": "F4",
-    "Name": "LEEN",
+    "Name": "JOSEPHINE",
     "Gender": "female",
     "VER 3 Name": "LEEN_04",
     "Clip ID": "F4_02",
-    "Duration (s)": "2.099",
+    "Duration (s)": "2.483",
     "# of IPs": "1",
-    "# of words": "11",
-    "Speech rate (words per s)": "5.240590758",
+    "# of words": "10",
+    "Speech rate (words per s)": "4.027386226",
     "Link": "",
-    "Transcription": "And then suddenly I started to see a lot of smoke"
+    "Transcription": "Really really like trying to show support to the person"
   },
   {
     "Speaker ID": "F4",
-    "Name": "LEEN",
+    "Name": "JOSEPHINE",
     "Gender": "female",
     "VER 3 Name": "LEEN_05",
     "Clip ID": "F4_03",
-    "Duration (s)": "2.413",
+    "Duration (s)": "2.523",
     "# of IPs": "1",
-    "# of words": "13",
-    "Speech rate (words per s)": "5.387484459",
+    "# of words": "14",
+    "Speech rate (words per s)": "5.548949663",
     "Link": "",
-    "Transcription": "If you've been reading the news all there were a bunch of fires"
+    "Transcription": "I don't think they catch feelings but they just become more attached to them"
   },
   {
     "Speaker ID": "F4",
-    "Name": "LEEN",
+    "Name": "JOSEPHINE",
     "Gender": "female",
     "VER 3 Name": "LEEN_06",
     "Clip ID": "F4_04",
-    "Duration (s)": "1.866",
+    "Duration (s)": "1.514",
     "# of IPs": "1",
-    "# of words": "14",
-    "Speech rate (words per s)": "7.502679528",
+    "# of words": "7",
+    "Speech rate (words per s)": "4.623513871",
     "Link": "",
-    "Transcription": "It was like filling up very fast you know then my mum was like"
+    "Transcription": "Slowly put the fish in the water"
   },
   {
     "Speaker ID": "F5",
