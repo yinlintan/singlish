@@ -129,6 +129,23 @@ button, .continue-btn,
     color: #000000;
 }
 
+.submit-btn {
+    margin-left: 32vw;
+    margin-bottom: 45px;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    background-color: #eeeeee;
+    border-radius: 4%;
+    border-width: 0.1px;
+    font-family: Helvetica, system-ui,
+        -apple-system,
+        BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+}
+
 input[type="text" i] {
   height: calc(2em + 1px);
   border: 1px solid #000000;

@@ -143,9 +143,9 @@ for (let i = 0; i < practice_trial_audio_objects.length; i++){
   timeline.push(practice_trial_audio_objects[i][0]);
   timeline.push(practice_trial_audio_objects[i][1]);
   timeline.push(practice_trial_response_objects[i]);
-}
+} 
 
-/* REAL trial instructions*/
+/* REAL trial instructions */
 var realinstructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
@@ -176,7 +176,7 @@ for (i = 0; i < (NUM_TRIALS * NUM_BLOCKS); i++) { // for every trial
   timeline.push(all_trial_response_objects[i]); // response
 }
 
-/* survey 1: demographic questions*/
+/* survey 1: demographic questions */
 var survey1 = {
   type: jsPsychSurvey,
   pages: [
@@ -446,7 +446,7 @@ const thankyou = {
         </div>
       `,
   choices: ["Submit"],
-  button_html: `<center><button class="continue-btn">%choice%</button></center>`
+  button_html: `<button class="submit-btn">%choice%</button>`
 };
 timeline.push(thankyou);
 
