@@ -42,7 +42,10 @@ var instructions = {
   stimulus: `
         <div class="text" id="instruction">
             <img src="../images/stanford_logo.png" alt="stanford logo" width="180" height="80">
-            <p>Welcome! In this experiment, you will be listening to pairs of audio clips.</p>
+            <p><b>Only complete this study if you are a Singaporean or Singapore Permanent Resident (PR).</b></p>
+            <p>Please share this link with other Singaporeans and Singapore PRs, but do not participate in this study more than once.
+            <BR>You will not be compensated more than once.</p> 
+            <p>In this experiment, you will be listening to pairs of audio clips.</p>
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
             <p>This experiment should be completed on a desktop or laptop.</p>
