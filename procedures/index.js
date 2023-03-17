@@ -3,7 +3,7 @@ var jsPsych = initJsPsych({
   show_progress_bar: true,
   on_finish: function () {
     //jsPsych.data.displayData();
-    //window.location = "/procedures/thanks.html";
+    window.location = "https://yinlintan.github.io/singlish/procedures/thanks.html";
     proliferate.submit({ "trials": jsPsych.data.get().values() });
   },
   default_iti: 250
@@ -437,15 +437,16 @@ timeline.push(payment);
 
 /* thank you */
 const thankyou = {
-  type: jsPsychHtmlKeyboardResponse,
+  type: jsPsychHtmlButtonResponse,
   stimulus: `
         <div class="text" id="trial">
             <p>Thank you for completing the experiment!</p>
             <p>We will contact you soon to arrange for participant reimbursement.</p>
-            <p><a href="https://yinlintan.github.io/singlish/procedures/thanks.html">Click here to submit your responses and complete the study.</a></p>
+            <p>Please click the "Submit" button to submit your responses and complete the study.</p>
         </div>
       `,
-  choices: "NO_KEYS"
+  choices: ["Submit"],
+  button_html: `<center><button class="continue-btn">%choice%</button></center>`
 };
 timeline.push(thankyou);
 
