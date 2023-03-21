@@ -42,14 +42,14 @@ var instructions = {
   stimulus: `
         <div class="text" id="instruction">
             <img src="../images/stanford_logo.png" alt="stanford logo" width="180" height="80">
-            <p><b>Only complete this study if you are a Singaporean or Singapore Permanent Resident (PR).</b></p>
-            <p>Please share this link with other Singaporeans and Singapore PRs, but do not participate in this study more than once.
+            <p><b>Only complete this study if you are a Singaporean citizen or Singapore Permanent Resident (PR).</b></p>
+            <p>Please share this link with other Singaporean citizens and Singapore PRs, but do not participate in this study more than once.
             <BR>You will not be compensated more than once.</p> 
             <p>In this experiment, you will be listening to pairs of audio clips.</p>
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
             <p>This experiment should be completed on a desktop or laptop.</p>
-            <p>The experiment will take approximately 40 minutes and you will compensated 5 USD for your time.</p>
+            <p>The experiment will take approximately 40 minutes. You will be compensated 5 USD for your time.</p>
         </div>
       `,
   choices: ["Continue"],
@@ -126,7 +126,7 @@ var practiceinstructions = {
         <p>You will now begin the practice trials.</p>
         <p>In each trial, two audio clips will play one after another. You will hear a variety of sentences and phrases spoken by different talkers.</p>
         <p>Each audio clip will only be played once and you will not be able to replay them.</p>
-        <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
+        <p><strong>Your task is to decide which clip sounds more Singlish.</strong></p>
         <p>You might hear some clips that sound similar to each other, but please do your best to respond as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
@@ -156,7 +156,7 @@ var realinstructions = {
         <p>You will now begin the experiment.</p>
         <p>In each trial, two audio clips will play one after another. You will hear a variety of sentences and phrases spoken by different talkers.</p>
         <p>Each audio clip will only be played once and you will not be able to replay them.</p>
-        <p>Your task is to decide <strong>which clip sounds more Singlish</strong>.</p>
+        <p><strong>Your task is to decide which clip sounds more Singlish.</strong></p>
         <p>You might hear some clips that sound similar to each other, but please do your best to respond as quickly as possible.</p>
         <p>Please place your left index finger on the "S" key and your right index finger on the "L" key.</p>
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
@@ -326,7 +326,7 @@ timeline.push(survey2b);
 
 var survey3a = {
   type: jsPsychSurveyHtmlForm,
-  preamble: '<p>List three words that come to mind for the clips you think sounded more Singlish:</p>',
+  preamble: '<p>List three words that describe the clips and/or speakers that you think sounded more Singlish:</p>',
   html: '<p><input name="word1" class="try" type="text" placeholder="Word 1" required><BR><BR><input name="word2" type="text" placeholder="Word 2" required><BR><BR><input name="word3" type="text" placeholder="Word 3" required></p>'
 };
 timeline.push(survey3a);
