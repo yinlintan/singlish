@@ -326,7 +326,7 @@ timeline.push(survey2b);
 
 var survey3a = {
   type: jsPsychSurveyHtmlForm,
-  preamble: '<p>List three words that describe the clips and/or speakers that you think sounded more Singlish:</p>',
+  preamble: '<p>List three attributes to describe the speakers that sounded more Singlish:</p>',
   html: '<p><input name="word1" class="try" type="text" placeholder="Word 1" required><BR><BR><input name="word2" type="text" placeholder="Word 2" required><BR><BR><input name="word3" type="text" placeholder="Word 3" required></p>'
 };
 timeline.push(survey3a);
