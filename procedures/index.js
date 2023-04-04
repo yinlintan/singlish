@@ -49,7 +49,7 @@ var instructions = {
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
             <p>This experiment should be completed on a desktop or laptop.</p>
-            <p>The experiment will take approximately 40 minutes. You will be compensated 5 USD for your time.</p>
+            <p>The experiment will take approximately 40 minutes. You will be compensated 7 SGD for your time.</p>
         </div>
       `,
   choices: ["Continue"],
