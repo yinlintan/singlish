@@ -132,6 +132,7 @@ var practiceinstructions = {
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p>Please respond only after both clips have finished playing.</p>
         <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
         <p><b>Please answer as quickly and accurately as possible.</b></p> 
   </center>
@@ -162,6 +163,7 @@ var realinstructions = {
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p>Please respond only after both clips have finished playing.</p>
         <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
         <p><b>Please answer as quickly and accurately as possible.</b></p> 
   </center>
