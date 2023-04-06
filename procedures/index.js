@@ -37,13 +37,12 @@ var preload_trial = {
 timeline.push(preload_practice);
 timeline.push(preload_trial);
 
-var closed = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `This study is currently not accepting new participants. Please check back again in the future.`,
-  choices: ["No"],
-  button_html: `<button class="continue-btn">%choice%</button>`,
+var stopCollection = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<p>This study is currently not accepting new participants. Please check back again in the future.</p>',
+    choices: "NO_KEYS",
 };
-timeline.push(closed);
+timeline.push(stopCollection);
 
 var instructions = {
   type: jsPsychHtmlButtonResponse,
