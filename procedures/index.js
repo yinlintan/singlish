@@ -56,7 +56,7 @@ var instructions = {
             <p>In this experiment, you will be listening to pairs of audio clips.</p>
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
             <p>Please ensure that you use earphones or headphones for the duration of this experiment.</p>
-            <p>This experiment should be completed on a desktop or laptop.</p>
+            <p>This experiment should be completed on a desktop or laptop using the Google Chrome browser.</p>
             <p>The experiment will take approximately 40 minutes. You will be compensated 7 SGD for your time.</p>
         </div>
       `,
@@ -140,6 +140,7 @@ var practiceinstructions = {
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p><b>Respond as quickly as possible when both clips have finished playing.</b></p>
         <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
         <p><b>Please answer as quickly and accurately as possible.</b></p> 
   </center>
@@ -170,6 +171,7 @@ var realinstructions = {
         <p><img src="../procedures/keyboard.png" width="500" style="margin-top:-10px"></p>
         <p>If the <strong>first clip</strong> sounds more Singlish, please <strong>press S</strong>.</p>
         <p>If the <strong>second clip</strong> sounds more Singlish, please <strong>press L</strong>.</p>
+        <p><b>Respond as quickly as possible when both clips have finished playing.</b></p>
         <p>This is a timed task. If you do not respond in time, the next question will appear automatically.</p>
         <p><b>Please answer as quickly and accurately as possible.</b></p> 
   </center>
