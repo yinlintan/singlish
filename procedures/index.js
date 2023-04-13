@@ -44,6 +44,22 @@ var stopCollection = {
 };
 timeline.push(stopCollection);
 
+// browser check
+var checkBrowser = {
+  type: jsPsychBrowserCheck,
+  inclusion_function: (data) => {
+    return data.browser == 'chrome' && data.mobile === false
+  },
+  exclusion_message: (data) => {
+    if(data.mobile){
+      return '<p>You must use a desktop/laptop computer to participate in this experiment.</p>';
+    } else if(data.browser !== 'chrome'){
+      return '<p>You must use Chrome as your browser to complete this experiment.</p>'
+    }
+  }
+};
+timeline.push(checkBrowser);
+
 var instructions = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
