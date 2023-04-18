@@ -68,7 +68,7 @@ var instructions = {
         <div class="text" id="instruction">
             <img src="../images/stanford_logo.png" alt="stanford logo" width="180" height="80">
             <p><b>Only complete this study if you are a Singaporean citizen or Singapore Permanent Resident (PR) who is 18 years old or older.</b></p>
-            <p>Please share this link with other Singaporean citizens and Singapore PRs, but do not participate in this study more than once.
+            <p>Please share this link with other Singaporean citizens and Singapore PRs, but <u>do not participate in this study more than once</u>.
             <BR>You will not be compensated more than once.</p> 
             <p>In this experiment, you will be listening to pairs of audio clips.</p>
             <p>Each pair of audio clips will be played once in consecutive order. Your task is to decide which one of the clips sounds more Singlish.</p>
