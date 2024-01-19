@@ -189,23 +189,23 @@ y_axis_values <- seq(0, 1, 0.2)
 y_axis_labels <- y_axis_values
 
 # predicted probabilities of Singlish score based on pitch PVI (centered) values
-pitchpvi_plot <- plot_model(m.singlish, type="pred", terms="cst_pitchpvi_new [all]", color=gray.colors(5)) +
-  labs(x="Pitch PVI", y="Proportion", title="")
-pitchpvi_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+plot_model(m.singlish, type="pred", terms="cst_pitchpvi_new [all]", color=gray.colors(5)) +
+  labs(x="Pitch PVI", y="Proportion", title="") +
+  scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
 
 # predicted probabilities of Singlish score based on pitch variance (centered) values
-pitchvar_plot <- plot_model(m.singlish, type="pred", terms="cstvar_new [all]", color=gray.colors(5)) +
-  labs(x="Pitch variance", y="Proportion", title="")
-pitchvar_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+plot_model(m.singlish, type="pred", terms="cstvar_new [all]", color=gray.colors(5)) +
+  labs(x="Pitch variance", y="Proportion", title="") +
+  scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
 
 # predicted probabilities of Singlish score based on articulation rate (centered) values
-articulationrate_plot <- plot_model(m.singlish, type="pred", terms="csyllablespersec [all]", color=gray.colors(5)) +
-  labs(x="Articulation rate", y="Proportion", title="")
-articulationrate_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+plot_model(m.singlish, type="pred", terms="csyllablespersec [all]", color=gray.colors(5)) +
+  labs(x="Articulation rate", y="Proportion", title="") +
+  scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
 
 # predicted probabilities of Singlish score based on durational PVI (centered) values *NS)
-durationalpvi_plot <- plot_model(m.singlish, type="pred", terms="cnpviV_nophrasefinal [all]", color=gray.colors(5)) +
-  labs(x="Durational PVI", y="Proportion", title="")
-durationalpvi_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+plot_model(m.singlish, type="pred", terms="cnpviV_nophrasefinal [all]", color=gray.colors(5)) +
+  labs(x="Durational PVI", y="Proportion", title="") +
+  scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
 ```
 
