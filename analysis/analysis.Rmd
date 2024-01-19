@@ -1,0 +1,211 @@
+---
+title: "Prosody and typicality in listener categorizations of dialectal variability"
+author: "Yin Lin Tan, Ting Lin, and Meghan Sumner"
+date: "2024-01-19"
+output: 
+  bookdown::html_document2:
+    toc: true
+    number_sections: false
+    theme: cosmo
+---
+
+This file contains the data analyses that was conducted for the paper "Prosody and typicality in listener categorizations of dialectal variability" by Yin Lin Tan, Ting Lin, and Meghan Sumner. The experiment code, data, and analysis scripts can be found on the [Github repo for this project](https://github.com/yinlintan/singlish/). 
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = 'C:/Users/flick/Documents/Github/singlish/')
+knitr::opts_chunk$set(fig.width=14, warning = FALSE)
+```
+
+```{r load-packages-data, include=FALSE}
+# load packages
+library(tidyverse)
+library(dplyr)
+library(lmerTest)
+library(lme4)
+library(regclass)
+library(car)
+library(ggsignif)
+library(mgcv)
+library(gamm4)
+library(itsadug)
+library(ggplot2)
+library(sjPlot)
+theme_set(theme_bw())
+
+# load data
+df.singlish <- read.csv("data/data.csv") # full data frame
+df.singlish$id <- as.factor(df.singlish$id)
+df.singlish$speaker <- as.factor(df.singlish$speaker)
+df.singlish$clip <- as.factor(df.singlish$clip)
+
+# load more data!
+df.singlish_proportion <- read.csv("data/data_proportion.csv") # data, but with proportions instead of binary choice data
+df.singlish_ones <- read.csv("data/data_ones.csv") # only data from clips which were chosen as the More Singlish clip
+```
+
+This experiment was a speeded forced-choice task. In each trial, listeners heard two audio clips and selected which one sounded More Singlish within two seconds. If they did not provide a response within two seconds, no response would be recorded for that trial and the experiment will move on to the next trial automatically. There were 40 clips in total; listeners heard each clip six times throughout the entire experiment.
+
+# Response Choice
+
+First, let's have a look at listeners' **response choices**. This plot shows the proportion of trials in which each of the clips was chosen as the More Singlish clip:
+
+```{r response-choice-proportion}
+# raw proportion data
+df.singlish_proportion %>% 
+  ggplot(aes(x=reorder(clip,probability,na.rm=TRUE), y=probability, fill=speaker)) + 
+  geom_boxplot(width=0.5) + 
+  geom_point(size=0.5) +
+  labs(y="Proportion", x="Clip", fill="Talker") +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1))
+```
+
+We also generated a Singlish score for each clip using Markov chains, which allows us to account for the different match-ups that have occurred in the experiment. The Singlish score represents the predicted probability of each clip being chosen as the More Singlish clip and can be thought of as a proxy for perceived Singlishness.
+
+```{r response-choice-markov}
+# scatter plot with Singlish scores on the y-axis instead
+
+## force re-order the labels so that they align with the raw proportion data
+df.singlish_proportion$clip <- factor(df.singlish_proportion$clip, levels=c('M3_01', 'M3_02', 'F2_02', 'M3_04', 'F2_01', 'M3_03', 'M5_01', 'F3_01', 'F2_04', 'F3_03', 'F3_04', 'M5_03', 'M5_02', 'M1_04', 'M5_04', 'F1_01', 'F4_01', 'F2_03', 'F4_04', 'M1_01', 'F5_03', 'F4_03', 'M1_03', 'M1_02', 'M4_01', 'F3_02', 'F5_01', 'F5_02', 'M4_03', 'F1_04', 'F4_02', 'F1_03', 'M2_02', 'F1_02', 'M4_04', 'F5_04', 'M4_02', 'M2_03', 'M2_04', 'M2_01'))
+
+df.singlish_proportion %>%
+  ggplot(aes(x=clip, y=clip_score)) +
+  geom_line(color="black") +
+  geom_point(aes(fill=speaker), shape=21, size=2) +
+  labs(y="Singlish score", x="Clip", fill="Talker") +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1))
+```
+
+To test the null hypothesis that the proportion of More Singlish responses for all the clips is similar to each other, we run a chi-square test of independence.
+
+```{r chisq-test}
+tab <- table(df.singlish$clip, df.singlish$singlish) # create contingency table
+chisq.test(df.singlish$clip, df.singlish$singlish, correct=FALSE) # chi-square test
+```
+
+# Reaction Time
+
+Next, let's look at the **reaction time** (RT) data. All reaction times presented here are log-transformed reaction times. 
+
+This plot shows the relationship between RT and Singlish score for all trials. Essentially, even if the particular clip was not chosen as the More Singlish clip in that trial, its RT (i.e., the time it took for the *other* clip in the trial to be selected as the More Singlish clip, which is also the time it took for the particular clip in question to be *not* selected) is also represented in this plot.
+
+```{r, include=FALSE}
+df.rt_all <- df.singlish %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish))
+df.rt_all$id <- as.factor(df.rt_all$id)
+df.rt_all$speaker <- as.factor(df.rt_all$speaker)
+df.rt_all$clip <- as.factor(df.rt_all$clip)
+```
+
+
+```{r rt-all}
+tab.rt_all <- df.rt_all %>%
+  group_by(clip,clip_score,speaker) %>%
+  summarise( 
+    n=n(),
+    mean=mean(as.numeric(logRT)),
+    sd=sd(as.numeric(logRT))
+  ) %>%
+  mutate(se=sd/sqrt(n))  %>%
+  mutate(ic=se * qt((1-0.05)/2 + .5, n-1)) %>%
+  ungroup()
+
+ggplot(tab.rt_all, aes(x=clip_score, y=mean, label=clip)) +
+  geom_point(aes(x=clip_score, y=mean, color=speaker), stat="identity") +
+  geom_smooth(method="gam", color="black") + 
+  geom_text(size=3) +
+  geom_errorbar(aes(x=clip_score, ymin=mean-ic, ymax=mean+ic, color=speaker), width=0.0005, alpha=0.6, linewidth=0.7) +
+  labs(x="Singlish score", y="Log-transformed RT", color="Talker")
+```
+
+We also want to look at the relationship between RT and Singlish score, but only for those clips which were chosen as the More Singlish clip.
+
+```{r, include=FALSE}
+df.rt_ones <- df.singlish_ones %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish))
+df.rt_ones$id <- as.factor(df.rt_ones$id)
+df.rt_ones$speaker <- as.factor(df.rt_ones$speaker)
+df.rt_ones$clip <- as.factor(df.rt_ones$clip)
+```
+
+
+```{r rt-ones}
+tab.rt_ones <- df.rt_ones %>%
+  group_by(clip,clip_score,speaker) %>%
+  summarise( 
+    n=n(),
+    mean=mean(as.numeric(logRT)),
+    sd=sd(as.numeric(logRT))
+  ) %>%
+  mutate(se=sd/sqrt(n)) %>%
+  mutate(ic=se * qt((1-0.05)/2 + .5, n-1)) %>%
+  ungroup()
+
+ggplot(tab.rt_ones, aes(x=clip_score, y=mean, label=clip)) +
+  geom_point(aes(x=clip_score, y=mean, color=speaker), stat="identity") +
+  geom_smooth(method="gam", color = "black") + 
+  geom_text(size=3) +
+  geom_errorbar(aes(x=clip_score, ymin=mean-ic, ymax=mean+ic, color=speaker), width=0.0005, alpha=0.6, linewidth=0.7) +
+  labs(x="Singlish score", y="Log-transformed RT", color="Talker")
+```
+
+Now, we run a linear mixed effects regression model with RT as the dependent variable and Singlish score as the fixed effect, with by-participant slope for clip score. This model shows that clips with a higher Singlish score were chosen as the More Singlish clip with a significantly faster RT.
+
+```{r rt-ones-model}
+m.rt_ones = lmer(logRT ~ clip_score + (1|speaker) + (1 + clip_score|id), data=df.rt_ones)
+summary(m.rt_ones)
+```
+
+Next, we want to model the relationship between RT and Singlish score for all the stimuli, not just those which were chosen as the More Singlish clip. We use a generalized additive model with random smooths because of our relatively simple random effects structure and the non-linear relationship between RT and Singlish score.
+
+```{r rt-all-model}
+m.rt_all = gam(logRT ~ s(clip_score, bs="cr") + s(clip_score, id, bs="re") + s(speaker, bs="re"), data=df.rt_all, method="REML")
+summary(m.rt_all)
+```
+
+And here's a plot of the effects of Singlish score:
+```{r rt-all-model-plots}
+plot(m.rt_all, select=1, shade=TRUE, shift=coef(m.rt_all)[1], ylim=c(5.6, 6.2), ylab="Log-transformed RT", xlab="Singlish score")
+```
+
+# Acoustic Analysis
+
+From listeners' open-ended responses in the questionnaire, we selected four **acoustic features** to analyze: pitch Pairwise Variability Index (PVI), pitch variance, durational PVI, and articulation rate. Each clip was annotated for all of these features. The centered values of these acoustic features for each of the 40 clips are already appended in the data frame that's associated with this Rmd file.
+
+We run a logistic mixed effects regression model with response as the dependent variable (i.e., whether or not the clip was chosen as the More Singlish clip), the four acoustic features as fixed effects, and random intercepts of clip and speaker. 
+
+The model also includes theoretically justified interactions between speech rate and pitch PVI, between pitch variance and pitch PVI, and between durational PVI and pitch PVI. Participant was not included as a random effect because the proportion of responses for each participant is even (i.e., all participants had the same number of "1"s and "0"s for responses, given the design of the experiment); a model including participant as a random effect produced a singular fit error.
+
+```{r acoustic-model}
+m.singlish = glmer(singlish ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + (1|clip) + (1|speaker), data=df.singlish, family=binomial())
+summary(m.singlish)
+```
+
+The model shows that articulation rate, pitch PVI, and pitch variance are significant predictors of a More Singlish response. Let's plot the predictions from this model:
+
+```{r}
+y_axis_values <- seq(0, 1, 0.2)
+y_axis_labels <- y_axis_values
+
+# predicted probabilities of Singlish score based on pitch PVI (centered) values
+pitchpvi_plot <- plot_model(m.singlish, type="pred", terms="cst_pitchpvi_new [all]", color=gray.colors(5)) +
+  labs(x="Pitch PVI", y="Proportion", title="")
+pitchpvi_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+
+# predicted probabilities of Singlish score based on pitch variance (centered) values
+pitchvar_plot <- plot_model(m.singlish, type="pred", terms="cstvar_new [all]", color=gray.colors(5)) +
+  labs(x="Pitch variance", y="Proportion", title="")
+pitchvar_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+
+# predicted probabilities of Singlish score based on articulation rate (centered) values
+articulationrate_plot <- plot_model(m.singlish, type="pred", terms="csyllablespersec [all]", color=gray.colors(5)) +
+  labs(x="Articulation rate", y="Proportion", title="")
+articulationrate_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+
+# predicted probabilities of Singlish score based on durational PVI (centered) values *NS)
+durationalpvi_plot <- plot_model(m.singlish, type="pred", terms="cnpviV_nophrasefinal [all]", color=gray.colors(5)) +
+  labs(x="Durational PVI", y="Proportion", title="")
+durationalpvi_plot + scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
+```
+
