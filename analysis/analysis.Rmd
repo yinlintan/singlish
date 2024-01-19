@@ -1,5 +1,5 @@
 ---
-title: "Prosody and typicality in listener categorizations of dialectal variability"
+title: " "
 author: "Yin Lin Tan, Ting Lin, and Meghan Sumner"
 date: "2024-01-19"
 output: 
@@ -9,7 +9,7 @@ output:
     theme: cosmo
 ---
 
-This file contains the data analyses that was conducted for the paper "Prosody and typicality in listener categorizations of dialectal variability" by Yin Lin Tan, Ting Lin, and Meghan Sumner. The experiment code, data, and analysis scripts can be found on the [Github repo for this project](https://github.com/yinlintan/singlish/). 
+This file contains the data analyses that was conducted for the paper "..." by Yin Lin Tan, Ting Lin, and Meghan Sumner. The experiment code, data, and analysis scripts can be found on the [Github repo for this project](https://github.com/yinlintan/singlish/). 
 
 ```{r, setup, include=FALSE}
 knitr::opts_knit$set(root.dir = 'C:/Users/flick/Documents/Github/singlish/')
