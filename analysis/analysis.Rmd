@@ -19,7 +19,6 @@ knitr::opts_chunk$set(fig.width=14, warning = FALSE)
 ```{r load-packages-data, include=FALSE}
 # load packages
 library(tidyverse)
-library(dplyr)
 library(lmerTest)
 library(lme4)
 library(regclass)
@@ -164,9 +163,9 @@ m.rt_all = gam(logRT ~ s(clip_score, bs="cr") + s(clip_score, id, bs="re") + s(s
 summary(m.rt_all)
 ```
 
-And here's a plot of the effects of Singlish score:
+And here's a partial effect plot showing the effect of smooth term of Singlish score on RT:
 ```{r rt-all-model-plots}
-plot(m.rt_all, select=1, shade=TRUE, shift=coef(m.rt_all)[1], ylim=c(5.6, 6.2), ylab="Log-transformed RT", xlab="Singlish score")
+plot(m.rt_all, select=1, shade=TRUE, shift=coef(m.rt_all)[1], ylim=c(5.6, 6.2), ylab="Log-transformed RT", xlab="Singlish score", rug=TRUE)
 ```
 
 # Acoustic Analysis
