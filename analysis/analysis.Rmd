@@ -1,7 +1,6 @@
 ---
 title: "..."
 author: "Yin Lin Tan, Ting Lin, and Meghan Sumner"
-date: "2024-01-19"
 output: 
   bookdown::html_document2:
     toc: true
@@ -16,7 +15,7 @@ knitr::opts_knit$set(root.dir = 'C:/Users/flick/Documents/Github/singlish/')
 knitr::opts_chunk$set(fig.width=14, warning = FALSE)
 ```
 
-```{r load-packages-data, include=FALSE}
+```{r load-packages-data-1, include=FALSE}
 # load packages
 library(tidyverse)
 library(lmerTest)
@@ -37,9 +36,40 @@ df.singlish$id <- as.factor(df.singlish$id)
 df.singlish$speaker <- as.factor(df.singlish$speaker)
 df.singlish$clip <- as.factor(df.singlish$clip)
 
+# find which IDs have been dropped
+ids_before_drop = df.singlish$id
+
+# remove trials with no responses
+df.singlish_noNA = df.singlish %>% 
+  drop_na(singlish)
+ids_after_drop = df.singlish_noNA$id # IDs after removing trials with no responses
+
+# IDs that have been dropped = 396, 239, 247, 643, 470, 582, 556, 626, 78
+ids_completely_dropped <- setdiff(ids_before_drop, ids_after_drop)
+print("IDs that have been completely dropped:")
+print(unique(ids_completely_dropped))
+
+# reset the data frame
+df.singlish = df.singlish_noNA
+```
+
+```{r load-packages-data-2, include=FALSE}
 # load more data!
-df.singlish_proportion <- read.csv("data/data_proportion.csv") # data, but with proportions instead of binary choice data
-df.singlish_ones <- read.csv("data/data_ones.csv") # only data from clips which were chosen as the More Singlish clip
+
+# for the proportion data, not binary
+df.singlish_proportion <- read.csv("data/data_proportion.csv")
+df.singlish_proportion$id <- as.factor(df.singlish_proportion$id)
+df.singlish_proportion$speaker <- as.factor(df.singlish_proportion$speaker)
+df.singlish_proportion$clip <- as.factor(df.singlish_proportion$clip)
+## remove IDs
+df.singlish_proportion = df.singlish_proportion %>% 
+  filter(!id %in% c(396, 239, 247, 643, 470, 582, 556, 626, 78))
+
+# only data from clips which were chosen as the More Singlish clip
+df.singlish_ones <- read.csv("data/data_ones.csv")
+df.singlish_ones$id <- as.factor(df.singlish_ones$id)
+df.singlish_ones$speaker <- as.factor(df.singlish_ones$speaker)
+df.singlish_ones$clip <- as.factor(df.singlish_ones$clip)
 ```
 
 This experiment was a speeded forced-choice task. In each trial, listeners heard two audio clips and selected which one sounded More Singlish within two seconds. If they did not provide a response within two seconds, no response would be recorded for that trial and the experiment will move on to the next trial automatically. There were 40 clips in total; listeners heard each clip six times throughout the entire experiment.
