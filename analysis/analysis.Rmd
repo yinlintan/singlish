@@ -31,7 +31,7 @@ library(sjPlot)
 theme_set(theme_bw())
 
 # load data
-df.singlish <- read.csv("data/data.csv") # full data frame
+df.singlish <- read.csv("C:/Users/flick/Documents/Github/singlish/data/data.csv") # full data frame
 df.singlish$id <- as.factor(df.singlish$id)
 df.singlish$speaker <- as.factor(df.singlish$speaker)
 df.singlish$clip <- as.factor(df.singlish$clip)
@@ -51,13 +51,18 @@ print(unique(ids_completely_dropped))
 
 # reset the data frame
 df.singlish = df.singlish_noNA
+
+# remove NAs
+df.singlish <- df.singlish %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish))
 ```
 
 ```{r load-packages-data-2, include=FALSE}
 # load more data!
 
 # for the proportion data, not binary
-df.singlish_proportion <- read.csv("data/data_proportion.csv")
+df.singlish_proportion <- read.csv("C:/Users/flick/Documents/Github/singlish/data/data_proportion.csv")
 df.singlish_proportion$id <- as.factor(df.singlish_proportion$id)
 df.singlish_proportion$speaker <- as.factor(df.singlish_proportion$speaker)
 df.singlish_proportion$clip <- as.factor(df.singlish_proportion$clip)
@@ -66,10 +71,22 @@ df.singlish_proportion = df.singlish_proportion %>%
   filter(!id %in% c(396, 239, 247, 643, 470, 582, 556, 626, 78))
 
 # only data from clips which were chosen as the More Singlish clip
-df.singlish_ones <- read.csv("data/data_ones.csv")
+df.singlish_ones <- read.csv("C:/Users/flick/Documents/Github/singlish/data/data_ones.csv")
 df.singlish_ones$id <- as.factor(df.singlish_ones$id)
 df.singlish_ones$speaker <- as.factor(df.singlish_ones$speaker)
 df.singlish_ones$clip <- as.factor(df.singlish_ones$clip)
+df.singlish_ones <- df.singlish_ones %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish))
+
+# for the pair in trial comparisons
+df.singlish_pairs <- read.csv("C:/Users/flick/Documents/Github/singlish/data/data_pairs.csv")
+df.singlish_pairs$id <- as.factor(df.singlish_pairs$id)
+df.singlish_pairs$speaker <- as.factor(df.singlish_pairs$speaker)
+df.singlish_pairs$clip <- as.factor(df.singlish_pairs$clip)
+df.singlish_pairs <- df.singlish_pairs %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish))
 ```
 
 This experiment was a speeded forced-choice task. In each trial, listeners heard two audio clips and selected which one sounded More Singlish within two seconds. If they did not provide a response within two seconds, no response would be recorded for that trial and the experiment will move on to the next trial automatically. There were 40 clips in total; listeners heard each clip six times throughout the entire experiment.
@@ -90,12 +107,15 @@ df.singlish_proportion %>%
 
 We also generated a Singlish score for each clip using Markov chains, which allows us to account for the different match-ups that have occurred in the experiment. The Singlish score represents the predicted probability of each clip being chosen as the More Singlish clip and can be thought of as a proxy for perceived Singlishness.
 
-```{r response-choice-markov}
+```{r response-choice-markov-data, include=FALSE}
 # scatter plot with Singlish scores on the y-axis instead
 
 ## force re-order the labels so that they align with the raw proportion data
 df.singlish_proportion$clip <- factor(df.singlish_proportion$clip, levels=c('M3_01', 'M3_02', 'F2_02', 'M3_04', 'F2_01', 'M3_03', 'M5_01', 'F3_01', 'F2_04', 'F3_03', 'F3_04', 'M5_03', 'M5_02', 'M1_04', 'M5_04', 'F1_01', 'F4_01', 'F2_03', 'F4_04', 'M1_01', 'F5_03', 'F4_03', 'M1_03', 'M1_02', 'M4_01', 'F3_02', 'F5_01', 'F5_02', 'M4_03', 'F1_04', 'F4_02', 'F1_03', 'M2_02', 'F1_02', 'M4_04', 'F5_04', 'M4_02', 'M2_03', 'M2_04', 'M2_01'))
+```
 
+
+```{r response-choice-markov-plots}
 df.singlish_proportion %>%
   ggplot(aes(x=clip, y=clip_score)) +
   geom_line(color="black") +
@@ -127,7 +147,7 @@ df.rt_all$clip <- as.factor(df.rt_all$clip)
 ```
 
 
-```{r rt-all}
+```{r rt-all-data, include=FALSE}
 tab.rt_all <- df.rt_all %>%
   group_by(clip,clip_score,speaker) %>%
   summarise( 
@@ -138,7 +158,10 @@ tab.rt_all <- df.rt_all %>%
   mutate(se=sd/sqrt(n))  %>%
   mutate(ic=se * qt((1-0.05)/2 + .5, n-1)) %>%
   ungroup()
+```
 
+
+```{r rt-all-plot}
 ggplot(tab.rt_all, aes(x=clip_score, y=mean, label=clip)) +
   geom_point(aes(x=clip_score, y=mean, color=speaker), stat="identity") +
   geom_smooth(method="gam", color="black") + 
@@ -159,7 +182,7 @@ df.rt_ones$clip <- as.factor(df.rt_ones$clip)
 ```
 
 
-```{r rt-ones}
+```{r rt-ones-data, include=FALSE}
 tab.rt_ones <- df.rt_ones %>%
   group_by(clip,clip_score,speaker) %>%
   summarise( 
@@ -170,7 +193,10 @@ tab.rt_ones <- df.rt_ones %>%
   mutate(se=sd/sqrt(n)) %>%
   mutate(ic=se * qt((1-0.05)/2 + .5, n-1)) %>%
   ungroup()
+```
 
+
+```{r rt-ones-plot}
 ggplot(tab.rt_ones, aes(x=clip_score, y=mean, label=clip)) +
   geom_point(aes(x=clip_score, y=mean, color=speaker), stat="identity") +
   geom_smooth(method="gam", color = "black") + 
@@ -207,16 +233,19 @@ We run a logistic mixed effects regression model with response as the dependent 
 The model also includes theoretically justified interactions between speech rate and pitch PVI, between pitch variance and pitch PVI, and between durational PVI and pitch PVI. Participant was not included as a random effect because the proportion of responses for each participant is even (i.e., all participants had the same number of "1"s and "0"s for responses, given the design of the experiment); a model including participant as a random effect produced a singular fit error.
 
 ```{r acoustic-model}
-m.singlish = glmer(singlish ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + (1|clip) + (1|speaker), data=df.singlish, family=binomial())
+m.singlish = glmer(singlish ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + (1|clip) + (1|speaker), data=df.singlish_pairs, family=binomial())
 summary(m.singlish)
 ```
 
 The model shows that articulation rate, pitch PVI, and pitch variance are significant predictors of a More Singlish response. Let's plot the predictions from this model:
 
-```{r}
+```{r, include=FALSE}
 y_axis_values <- seq(0, 1, 0.2)
 y_axis_labels <- y_axis_values
+```
 
+
+```{r acoustic-model-predictions}
 # predicted probabilities of Singlish score based on pitch PVI (centered) values
 plot_model(m.singlish, type="pred", terms="cst_pitchpvi_new [all]", color=gray.colors(5)) +
   labs(x="Pitch PVI", y="Proportion", title="") +
@@ -237,4 +266,147 @@ plot_model(m.singlish, type="pred", terms="cnpviV_nophrasefinal [all]", color=gr
   labs(x="Durational PVI", y="Proportion", title="") +
   scale_y_continuous(breaks=y_axis_values, labels=y_axis_labels)
 ```
+
+We also decided to look at the relationship between acoustic cues of the two clips in a given trial. Since the three interactions we included in the previous acoustic model were not significant, we have dropped them in this next model. Instead, we have included the difference between the acoustic feature of the current clip (e.g., `csyllablespersec`) and the same feature of the other clip in the same trial (e.g., `csyllablespersec_pair`).
+
+This difference is represented in the data frame `df.singlish_pairs` in two ways: as the raw difference (e.g., `csyllablespersec_diff_c`) and as the absolute difference (e.g., `csyllablespersec_diff_c_abs`). All values are centered.
+
+# Relative perception
+
+In this section, we look at how listeners' attention to differences between the two clips affects categorization, in terms of both response choice and response time.
+
+## RT and difference in Singlish score
+
+```{r rt-singlishscore-data, include=FALSE}
+df.singlish_scorediff <- read.csv('C:/Users/flick/Documents/Github/singlish/data/data_scorediff.csv')
+
+df.singlish_scorediff <- df.singlish_scorediff %>%
+  filter(!is.infinite(logRT)) %>% 
+  filter(!is.na(singlish)) %>% 
+  filter(singlish == 1)
+```
+
+```{r rt-singlishscore-plot}
+ggplot(df.singlish_scorediff, aes(x = abs_score_difference, y = logRT)) +
+  geom_point(size = 0.5, color = "gray", alpha = 0.5) +
+  labs(x = "Absolute difference in Singlish scores", y = "Log-transformed RT") +
+  geom_smooth(method = "lm", se = TRUE, color = "black") 
+```
+
+We ran a linear mixed effects regression model to test the relationship between differences in Singlish score and RT:
+
+```{r rt-singlishscore-model}
+m.singlish_scorediff <- lmer(logRT ~ abs_score_difference + (1|clip) + (1|speaker) + (abs_score_difference|id), data = df.singlish_scorediff)
+summary(m.singlish_scorediff)
+```
+
+## Response choice and difference in acoustic features
+
+The next two models look at the relationship between the likelihood of being chosen as the More Singlish clip and the magnitude and directionality of difference in acoustic values between the current clip and the other clip in the same trial. These two models use the **raw difference in acoustic features**, and so directionality is encoded in the estimates.
+
+The following includes the all the fixed effects from the previous model + the difference between acoustic features within a trial:
+
+```{r acoustic-model-pairs-1}
+m.singlish_pairs_1 = glmer(singlish ~  csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + csyllablespersec_diff_c + cst_pitchpvi_new_diff_c + cstvar_new_diff_c + cnpviV_nophrasefinal_diff_c + (1|clip) + (1|speaker), data=df.singlish_pairs, family=binomial())
+summary(m.singlish_pairs_1)
+```
+
+The following model only includes the difference between acoustic features within a trial as a predictor:
+
+```{r acoustic-model-pairs-2}
+m.singlish_pairs_2 = glmer(singlish ~ csyllablespersec_diff_c + cst_pitchpvi_new_diff_c + cstvar_new_diff_c + cnpviV_nophrasefinal_diff_c + (1|clip) + (1|speaker), data=df.singlish_pairs, family=binomial())
+summary(m.singlish_pairs_2)
+```
+We then compare the two models:
+
+```{r acoustic-model-pairs-compare}
+anova(m.singlish_pairs_1, m.singlish_pairs_2, test="LRT")
+```
+
+Since the more complex model is not a better predictor of the data, we will go with the simpler model, `m.singlish_pairs_2` which includes only the difference in values of the acoustic features as fixed effects.
+
+### Alternative: Interaction instead of difference
+
+One alternative way of looking at this is by including the interactions between the acoustic features of the two clips in a given trial as fixed effects, instead of using the difference in acoustic features:
+
+```{r acoustic-model-pairs-interact-3}
+m.singlish_pairs_3 = glmer(singlish ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + csyllablespersec:csyllablespersec_pair + cstvar_new:cstvar_new_pair + cst_pitchpvi_new:cst_pitchpvi_new_pair + cnpviV_nophrasefinal:cnpviV_nophrasefinal_pair + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_3)
+```
+
+```{r acoustic-model-pairs-interact-4}
+m.singlish_pairs_4 = glmer(singlish ~ csyllablespersec:csyllablespersec_pair + cstvar_new:cstvar_new_pair + cst_pitchpvi_new:cst_pitchpvi_new_pair + cnpviV_nophrasefinal:cnpviV_nophrasefinal_pair + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_4)
+```
+Both models don't show any significant effects, but we can compare them anyway:
+
+```{r acoustic-model-pairs-compare-0}
+anova(m.singlish_pairs_3, m.singlish_pairs_4, test="LRT")
+```
+
+
+## RT and difference in acoustic features
+
+The next two models examine the relationship between RT of a trial and the difference in values of acoustic features between the current clip and the other clip in the trial. Here, we use the **absolute difference** in acoustic features.
+
+The following includes the all the fixed effects from the acoustic model + the difference between acoustic features within a trial:
+
+```{r acoustic-model-pairs-5}
+m.singlish_pairs_5 = lmer(logRT ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + csyllablespersec_diff_c_abs + cst_pitchpvi_new_diff_c_abs + cstvar_new_diff_c_abs + cnpviV_nophrasefinal_diff_c_abs + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_5)
+```
+
+This second model only includes the absolute difference in values of the acoustic features as fixed effects:
+
+```{r acoustic-model-pairs-6}
+m.singlish_pairs_6 = lmer(logRT ~ csyllablespersec_diff_c_abs + cst_pitchpvi_new_diff_c_abs + cstvar_new_diff_c_abs + cnpviV_nophrasefinal_diff_c_abs + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_6)
+```
+
+We then compare the two models:
+
+```{r acoustic-model-pairs-RT-compare}
+anova(m.singlish_pairs_5, m.singlish_pairs_6, test="LRT")
+```
+
+Since the more complex model is not a significantly better predictor of the data than the simpler model, we will go with the simpler model, `m.singlish_pairs_6`. This simpler model only includes the interactions between the values of the acoustic features of the two clips in a given trial.
+
+Next, we want to decide what is the optimal random effects structure for our RT model, since our first RT model (`m.rt_ones`) included random by-participant slope and intercept for the relevant fixed effect, but `m.singlish_pairs_6` only includes random intercepts of clip and speaker.
+
+This next model therefore incorporates random by-participant slopes and intercepts for the absolute difference in acoustic features between two clips in a given trial:
+
+```{r acoustic-model-pairs-7}
+m.singlish_pairs_7 = lmer(logRT ~ csyllablespersec_diff_c_abs + cst_pitchpvi_new_diff_c_abs + cstvar_new_diff_c_abs + cnpviV_nophrasefinal_diff_c_abs + (1 + csyllablespersec_diff_c_abs|id) + (1 + cst_pitchpvi_new_diff_c_abs|id) + (1 + cstvar_new_diff_c_abs|id) + (1 + cnpviV_nophrasefinal_diff_c_abs|id) + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_7)
+```
+
+Comparing the model with simplified random effects (`m.singlish_pairs_6`) versus the one with a more complex random effects structure (`m.singlish_pairs_7`):
+
+```{r acoustic-model-pairs-RT-compare-2}
+anova(m.singlish_pairs_6, m.singlish_pairs_7, test="LRT")
+```
+
+We see that `m.singlish_pairs_7`, the model with a more complex random effects structure, is significantly better than the simpler model. Therefore, we go with `m.singlish_pairs_7`.
+
+### Alternative: Interaction instead of difference
+
+Another way of thinking about RT and relative perception is by looking at the interaction between the acoustic feature values of the two clips in a trial.
+
+```{r acoustic-model-pairs-8}
+m.singlish_pairs_8 = lmer(logRT ~ csyllablespersec + cst_pitchpvi_new + cstvar_new + cnpviV_nophrasefinal + csyllablespersec:cst_pitchpvi_new + cstvar_new:cst_pitchpvi_new + cnpviV_nophrasefinal:cst_pitchpvi_new + csyllablespersec:csyllablespersec_pair + cstvar_new:cstvar_new_pair + cst_pitchpvi_new:cst_pitchpvi_new_pair + cnpviV_nophrasefinal:cnpviV_nophrasefinal_pair + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_8)
+```
+
+```{r}
+m.singlish_pairs_9 = lmer(logRT ~ csyllablespersec:csyllablespersec_pair + cstvar_new:cstvar_new_pair + cst_pitchpvi_new:cst_pitchpvi_new_pair + cnpviV_nophrasefinal:cnpviV_nophrasefinal_pair + (1|clip) + (1|speaker), data=df.singlish_pairs)
+summary(m.singlish_pairs_9)
+```
+
+We then compare the two models:
+
+```{r acoustic-model-pairs-RT-interact-compare}
+anova(m.singlish_pairs_8, m.singlish_pairs_9, test="LRT")
+```
+
+
 
